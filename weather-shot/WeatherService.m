@@ -13,7 +13,7 @@
 
 @implementation WeatherService
 
-NSString const* kWeatherServerUrl = @"http://192.168.0.4:8080/weather-server";
+NSString const* kWeatherServerUrl = @"http://ec2-176-34-76-198.eu-west-1.compute.amazonaws.com:8080/weather-server";
 
 - (void)getWeatherByGoordinate:(double)latitude
                      longitude:(double)longitude

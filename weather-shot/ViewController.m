@@ -9,10 +9,11 @@
 #import "ViewController.h"
 
 #import "BasicTypes.h"
+#import "UIDebugger.h"
 #import "Weather.h"
 #import "WeatherService.h"
 
-int kMockupNum = 8;
+int kMockupNum = 15;
 static NSString *const kMockupName = @"mockup%d.png";
 int kMockupRefresh = 5;
 
@@ -39,6 +40,9 @@ int kMockupRefresh = 5;
   [super viewDidLoad];
 	// Initialize location manager to get current location data
   weatherService_ = [[WeatherService alloc] init];
+  debugger_ = [[UIDebugger alloc] init];
+  debugger_.parent = debugView_;
+  [debugger_ attach];
   
   locationManager_ = [[CLLocationManager alloc] init];
   locationManager_.delegate = self;
@@ -54,22 +58,11 @@ int kMockupRefresh = 5;
 
   // Display first image and start timer
   currentMockup_ = 0;
-  mockupView_ = [[UIImageView alloc] initWithImage:[self getCurrentMockup]];
-  tempView_ = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 30.0, 100.0, 40.0)];
-  tempView_.backgroundColor = [UIColor clearColor];
-  tempView_.textColor = [UIColor whiteColor];
-  tempView_.font = [UIFont boldSystemFontOfSize:38.0];
-  [mockupView_ addSubview:tempView_];
-  
-  locationView_ = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 10.0, 150.0, 20.0)];
-  locationView_.backgroundColor = [UIColor clearColor];
-  locationView_.textColor = [UIColor whiteColor];
-  locationView_.font = [UIFont boldSystemFontOfSize:20.0];
-
-  [mockupView_ addSubview:locationView_];
-  
-  [self.view addSubview:mockupView_];
-  [mockupView_ release];
+  [imageView_ setImage:[self getCurrentMockup]];
+    
+  hiddenLayerView_.delegate = self;
+  hiddenLayerView_.contentSize = CGSizeMake(320.0, 578.0);
+  [hiddenLayerView_ addSubview:tempView_];
   
   // Initialize and start mockup refrsh timer
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
@@ -77,7 +70,7 @@ int kMockupRefresh = 5;
 
 - (void)refreshScreen {
   STOP_NSTIMER(refreshTimer_)
-  [mockupView_ setImage:[self getCurrentMockup]];
+  [imageView_ setImage:[self getCurrentMockup]];
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
 }
 
@@ -103,21 +96,25 @@ int kMockupRefresh = 5;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-  NSLog(@"%@", newLocation.description);
-  NSLog(@"%@", oldLocation.description);
-  NSLog(@"%f,%f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+  [debugger_ debug:[NSString stringWithFormat:@"Retrieved new location coord(%f, %f)",
+                    newLocation.coordinate.latitude,
+                    newLocation.coordinate.longitude]];
   
   [weatherService_ getWeatherByGoordinate:newLocation.coordinate.latitude
                                 longitude:newLocation.coordinate.longitude
                                   success:^(Weather *weather) {
-                                    NSLog(@"name: %@, temp: %@", weather.name,
-                                          weather.temp);
-                                    locationView_.text = weather.name;
+                                    [debugger_ debug:[NSString stringWithFormat:@"name: %@, temp: %@, desc: %@",
+                                                      weather.name,
+                                                      weather.temp,
+                                                      weather.desc]];
+                                    
+                                    locationView_.text = [weather.name uppercaseString];
                                     tempView_.text =
-                                      [NSString stringWithFormat:@"%.02f", [weather.temp doubleValue]];                                    
+                                      [NSString stringWithFormat:@"%.01f°", [weather.temp doubleValue]];
+                                    descriptionView_.text = [weather.desc uppercaseString];
                                   }
                                   failure:^(NSError *error) {
-                                    
+                                    [debugger_ debug:@"Failed to retrieve weather data"];                                    
                                   }];
   [manager stopUpdatingLocation];
 }
@@ -125,6 +122,18 @@ int kMockupRefresh = 5;
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error {
   
+}
+
+#pragma mark -
+#pragma mark - UIScrollViewDelegate methods
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
+  [locationManager_ startUpdatingLocation]; 
 }
 
 @end

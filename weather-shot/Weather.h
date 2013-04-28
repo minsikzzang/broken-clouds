@@ -13,7 +13,7 @@
 @interface Weather : NSMutableDictionary<IFObject>
 
 @property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *description;
+@property (nonatomic, retain) NSString *desc;
 @property (nonatomic, retain) NSString *temp;
 @property (nonatomic, assign) double high;
 @property (nonatomic, assign) double low;

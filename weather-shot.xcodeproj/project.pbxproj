@@ -36,6 +36,14 @@
 		938FACCF1703AE6700B0E65B /* mockup6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938FACC71703AE6700B0E65B /* mockup6@2x.png */; };
 		938FACD01703AE6700B0E65B /* mockup7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938FACC81703AE6700B0E65B /* mockup7@2x.png */; };
 		938FACD11703AE6700B0E65B /* mockup8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938FACC91703AE6700B0E65B /* mockup8@2x.png */; };
+		93A0CA0C172C8AC4006C6A64 /* UIDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */; };
+		93BF771A172D21DA003225DE /* mockup9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7713172D21DA003225DE /* mockup9@2x.png */; };
+		93BF771B172D21DA003225DE /* mockup10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7714172D21DA003225DE /* mockup10@2x.png */; };
+		93BF771C172D21DA003225DE /* mockup11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7715172D21DA003225DE /* mockup11@2x.png */; };
+		93BF771D172D21DA003225DE /* mockup12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7716172D21DA003225DE /* mockup12@2x.png */; };
+		93BF771E172D21DA003225DE /* mockup13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7717172D21DA003225DE /* mockup13@2x.png */; };
+		93BF771F172D21DA003225DE /* mockup14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7718172D21DA003225DE /* mockup14@2x.png */; };
+		93BF7720172D21DA003225DE /* mockup15@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7719172D21DA003225DE /* mockup15@2x.png */; };
 		93F327621729D8A7002F6B2D /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327611729D8A7002F6B2D /* Weather.m */; };
 		93F327651729DAAE002F6B2D /* IFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327641729DAAE002F6B2D /* IFObject.m */; };
 /* End PBXBuildFile section */
@@ -88,6 +96,15 @@
 		938FACC71703AE6700B0E65B /* mockup6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup6@2x.png"; sourceTree = "<group>"; };
 		938FACC81703AE6700B0E65B /* mockup7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup7@2x.png"; sourceTree = "<group>"; };
 		938FACC91703AE6700B0E65B /* mockup8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup8@2x.png"; sourceTree = "<group>"; };
+		93A0CA0A172C8AC4006C6A64 /* UIDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDebugger.h; sourceTree = "<group>"; };
+		93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDebugger.m; sourceTree = "<group>"; };
+		93BF7713172D21DA003225DE /* mockup9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup9@2x.png"; sourceTree = "<group>"; };
+		93BF7714172D21DA003225DE /* mockup10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup10@2x.png"; sourceTree = "<group>"; };
+		93BF7715172D21DA003225DE /* mockup11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup11@2x.png"; sourceTree = "<group>"; };
+		93BF7716172D21DA003225DE /* mockup12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup12@2x.png"; sourceTree = "<group>"; };
+		93BF7717172D21DA003225DE /* mockup13@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup13@2x.png"; sourceTree = "<group>"; };
+		93BF7718172D21DA003225DE /* mockup14@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup14@2x.png"; sourceTree = "<group>"; };
+		93BF7719172D21DA003225DE /* mockup15@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup15@2x.png"; sourceTree = "<group>"; };
 		93F327601729D8A7002F6B2D /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
 		93F327611729D8A7002F6B2D /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		93F327631729DAAE002F6B2D /* IFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFObject.h; sourceTree = "<group>"; };
@@ -173,6 +190,8 @@
 				93F327611729D8A7002F6B2D /* Weather.m */,
 				93F327631729DAAE002F6B2D /* IFObject.h */,
 				93F327641729DAAE002F6B2D /* IFObject.m */,
+				93A0CA0A172C8AC4006C6A64 /* UIDebugger.h */,
+				93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */,
 			);
 			path = "weather-shot";
 			sourceTree = "<group>";
@@ -213,6 +232,13 @@
 		938FACC11703AE6700B0E65B /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				93BF7713172D21DA003225DE /* mockup9@2x.png */,
+				93BF7714172D21DA003225DE /* mockup10@2x.png */,
+				93BF7715172D21DA003225DE /* mockup11@2x.png */,
+				93BF7716172D21DA003225DE /* mockup12@2x.png */,
+				93BF7717172D21DA003225DE /* mockup13@2x.png */,
+				93BF7718172D21DA003225DE /* mockup14@2x.png */,
+				93BF7719172D21DA003225DE /* mockup15@2x.png */,
 				938FACC21703AE6700B0E65B /* mockup1@2x.png */,
 				938FACC31703AE6700B0E65B /* mockup2@2x.png */,
 				938FACC41703AE6700B0E65B /* mockup3@2x.png */,
@@ -313,6 +339,13 @@
 				938FACCF1703AE6700B0E65B /* mockup6@2x.png in Resources */,
 				938FACD01703AE6700B0E65B /* mockup7@2x.png in Resources */,
 				938FACD11703AE6700B0E65B /* mockup8@2x.png in Resources */,
+				93BF771A172D21DA003225DE /* mockup9@2x.png in Resources */,
+				93BF771B172D21DA003225DE /* mockup10@2x.png in Resources */,
+				93BF771C172D21DA003225DE /* mockup11@2x.png in Resources */,
+				93BF771D172D21DA003225DE /* mockup12@2x.png in Resources */,
+				93BF771E172D21DA003225DE /* mockup13@2x.png in Resources */,
+				93BF771F172D21DA003225DE /* mockup14@2x.png in Resources */,
+				93BF7720172D21DA003225DE /* mockup15@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +414,7 @@
 				932ABE581714D3D0009A9946 /* WeatherService.m in Sources */,
 				93F327621729D8A7002F6B2D /* Weather.m in Sources */,
 				93F327651729DAAE002F6B2D /* IFObject.m in Sources */,
+				93A0CA0C172C8AC4006C6A64 /* UIDebugger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
