@@ -1,15 +1,18 @@
 PODS:
   - AFNetworking (1.2.0)
+  - EDSunriseSet (0.0.1)
   - JSONKit (1.5pre)
   - Reachability (3.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.2.0)
+  - EDSunriseSet (~> 0.0.1)
   - JSONKit (~> 1.4)
   - Reachability (~> 3.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 3cbae45f61a9f995cdbd56bd571223910d7f4e44
+  EDSunriseSet: c891f7e3b807f62325b06a9e2723e5f2ac1b749f
   JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
   Reachability: 500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2
 

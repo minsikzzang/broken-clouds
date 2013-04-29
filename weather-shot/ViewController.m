@@ -9,8 +9,10 @@
 #import "ViewController.h"
 
 #import "BasicTypes.h"
+#include <math.h>
 #import "UIDebugger.h"
 #import "Weather.h"
+#import "WeatherIconFactory.h"
 #import "WeatherService.h"
 
 int kMockupNum = 15;
@@ -38,8 +40,10 @@ int kMockupRefresh = 5;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
 	// Initialize location manager to get current location data
   weatherService_ = [[WeatherService alloc] init];
+  
   debugger_ = [[UIDebugger alloc] init];
   debugger_.parent = debugView_;
   [debugger_ attach];
@@ -82,6 +86,7 @@ int kMockupRefresh = 5;
 
 - (void)dealloc {
   STOP_NSTIMER(refreshTimer_)
+  SAFE_RELEASE(debugView_)
   SAFE_RELEASE(locationManager_)
   SAFE_RELEASE(tempView_)
   SAFE_RELEASE(locationView_)
@@ -107,14 +112,21 @@ int kMockupRefresh = 5;
                                                       weather.name,
                                                       weather.temp,
                                                       weather.desc]];
+                                    WeatherIconFactory *factory =
+                                      [WeatherIconFactory buildFactory:weather
+                                                                   lat:newLocation.coordinate.latitude
+                                                                   lng:newLocation.coordinate.longitude
+                                                                   now:[NSDate date]];
+//                                    [factory build];
+
                                     
                                     locationView_.text = [weather.name uppercaseString];
                                     tempView_.text =
-                                      [NSString stringWithFormat:@"%.01f°", [weather.temp doubleValue]];
+                                      [NSString stringWithFormat:@"%ld°", lround([weather.temp doubleValue])];
                                     descriptionView_.text = [weather.desc uppercaseString];
                                   }
                                   failure:^(NSError *error) {
-                                    [debugger_ debug:@"Failed to retrieve weather data"];                                    
+                                    [debugger_ debug:@"Failed to retrieve weather data"];
                                   }];
   [manager stopUpdatingLocation];
 }

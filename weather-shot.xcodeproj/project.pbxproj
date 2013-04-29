@@ -44,6 +44,7 @@
 		93BF771E172D21DA003225DE /* mockup13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7717172D21DA003225DE /* mockup13@2x.png */; };
 		93BF771F172D21DA003225DE /* mockup14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7718172D21DA003225DE /* mockup14@2x.png */; };
 		93BF7720172D21DA003225DE /* mockup15@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7719172D21DA003225DE /* mockup15@2x.png */; };
+		93D51BAD172F21D00054EA95 /* WeatherIconFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D51BAC172F21D00054EA95 /* WeatherIconFactory.m */; };
 		93F327621729D8A7002F6B2D /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327611729D8A7002F6B2D /* Weather.m */; };
 		93F327651729DAAE002F6B2D /* IFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327641729DAAE002F6B2D /* IFObject.m */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,8 @@
 		93BF7717172D21DA003225DE /* mockup13@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup13@2x.png"; sourceTree = "<group>"; };
 		93BF7718172D21DA003225DE /* mockup14@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup14@2x.png"; sourceTree = "<group>"; };
 		93BF7719172D21DA003225DE /* mockup15@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup15@2x.png"; sourceTree = "<group>"; };
+		93D51BAB172F21D00054EA95 /* WeatherIconFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherIconFactory.h; sourceTree = "<group>"; };
+		93D51BAC172F21D00054EA95 /* WeatherIconFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherIconFactory.m; sourceTree = "<group>"; };
 		93F327601729D8A7002F6B2D /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
 		93F327611729D8A7002F6B2D /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		93F327631729DAAE002F6B2D /* IFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFObject.h; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				93F327641729DAAE002F6B2D /* IFObject.m */,
 				93A0CA0A172C8AC4006C6A64 /* UIDebugger.h */,
 				93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */,
+				93D51BAB172F21D00054EA95 /* WeatherIconFactory.h */,
+				93D51BAC172F21D00054EA95 /* WeatherIconFactory.m */,
 			);
 			path = "weather-shot";
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				93F327621729D8A7002F6B2D /* Weather.m in Sources */,
 				93F327651729DAAE002F6B2D /* IFObject.m in Sources */,
 				93A0CA0C172C8AC4006C6A64 /* UIDebugger.m in Sources */,
+				93D51BAD172F21D00054EA95 /* WeatherIconFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

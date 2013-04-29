@@ -21,6 +21,7 @@
 }
 
 - (void)attach {
+#ifdef UIDEBUG
   textView_ = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 180.0, 300.0)];
   textView_.backgroundColor = [UIColor clearColor];
   textView_.textColor = [UIColor blackColor];
@@ -32,6 +33,7 @@
   
   textView_.alpha = 0.6;
   [parent addSubview:textView_];
+#endif
 }
 
 - (void)dealloc {
@@ -40,8 +42,10 @@
 }
 
 - (void)debug:(NSString *)log {
+#ifdef UIDEBUG
   textView_.text = [textView_.text stringByAppendingFormat:@"\n%@", log];
-  NSLog(@"%@", textView_.text);
+#endif
+  NSLog(@"%@", log);
 }
 
 @end

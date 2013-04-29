@@ -23,7 +23,7 @@ NSString const* kWeatherServerUrl = @"http://ec2-176-34-76-198.eu-west-1.compute
                    kWeatherServerUrl, latitude, longitude];
   NSURL *url = [NSURL URLWithString:uri];
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
+  
   AFJSONRequestOperation *operation =
     [AFJSONRequestOperation
      JSONRequestOperationWithRequest:request
