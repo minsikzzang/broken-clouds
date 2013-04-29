@@ -27,7 +27,8 @@ enum {
   LightIntensityDrizzleRain = 310,
   DrizzleRain,
   HeavyIntensityDrizzleRain,
-  ShowerDrizzle = 321,
+  ShowerDrizzle = 321
+  /*
   500	 light rain	 [[file:10d.png]]
   501	 moderate rain	 [[file:10d.png]]
   502	 heavy intensity rain	 [[file:10d.png]]
@@ -67,6 +68,7 @@ enum {
   904	 hot
   905	 windy
   906	 hail
+   */
 };
 
 @interface Weather : NSMutableDictionary<IFObject>

@@ -112,12 +112,14 @@ int kMockupRefresh = 5;
                                                       weather.name,
                                                       weather.temp,
                                                       weather.desc]];
+                                    /*
                                     WeatherIconFactory *factory =
                                       [WeatherIconFactory buildFactory:weather
                                                                    lat:newLocation.coordinate.latitude
                                                                    lng:newLocation.coordinate.longitude
                                                                    now:[NSDate date]];
 //                                    [factory build];
+                                     */
 
                                     
                                     locationView_.text = [weather.name uppercaseString];
