@@ -10,20 +10,23 @@
 
 #import "BasicTypes.h"
 #include <math.h>
+#import "OutlinedLabel.h"
 #import "UIDebugger.h"
 #import "Weather.h"
 #import "WeatherIconFactory.h"
 #import "WeatherService.h"
 
-int kMockupNum = 15;
 static NSString *const kMockupName = @"mockup%d.png";
-int kMockupRefresh = 5;
+const int kMockupNum = 15;
+const int kMockupRefresh = 5;
+const int kSecond = 1;
 
 
 @interface ViewController ()
 
 - (UIImage *)getCurrentMockup;
 - (void)refreshScreen;
+- (void)updateDate;
 
 @end
 
@@ -70,12 +73,26 @@ int kMockupRefresh = 5;
   
   // Initialize and start mockup refrsh timer
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
+  
+  // Initialize and start date timer
+  START_NSTIMER_(dateTimer_, kSecond, updateDate, YES)
 }
 
 - (void)refreshScreen {
   STOP_NSTIMER(refreshTimer_)
   [imageView_ setImage:[self getCurrentMockup]];
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
+}
+
+- (void)updateDate {
+  NSDateFormatter *timeFormat = [[[NSDateFormatter alloc] init] autorelease];
+  [timeFormat setDateFormat:@"EEEE hh:mm:ss a"];
+  timeFormat.locale =
+    [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
+  NSDate *now = [[[NSDate alloc] init] autorelease];
+  dateView_.textColor = [UIColor blackColor];
+  dateView_.text =
+    [NSString stringWithFormat:@"%@", [timeFormat stringFromDate:now]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +102,7 @@ int kMockupRefresh = 5;
 }
 
 - (void)dealloc {
+  STOP_NSTIMER(dateTimer_)
   STOP_NSTIMER(refreshTimer_)
   SAFE_RELEASE(debugView_)
   SAFE_RELEASE(locationManager_)
@@ -101,35 +119,38 @@ int kMockupRefresh = 5;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-  [debugger_ debug:[NSString stringWithFormat:@"Retrieved new location coord(%f, %f)",
-                    newLocation.coordinate.latitude,
-                    newLocation.coordinate.longitude]];
+  CLLocationCoordinate2D coord = newLocation.coordinate;
   
-  [weatherService_ getWeatherByGoordinate:newLocation.coordinate.latitude
-                                longitude:newLocation.coordinate.longitude
-                                  success:^(Weather *weather) {
-                                    [debugger_ debug:[NSString stringWithFormat:@"name: %@, temp: %@, desc: %@",
-                                                      weather.name,
-                                                      weather.temp,
-                                                      weather.desc]];
-                                    /*
-                                    WeatherIconFactory *factory =
-                                      [WeatherIconFactory buildFactory:weather
-                                                                   lat:newLocation.coordinate.latitude
-                                                                   lng:newLocation.coordinate.longitude
-                                                                   now:[NSDate date]];
-//                                    [factory build];
-                                     */
+  [debugger_ debug:[NSString stringWithFormat:@"Retrieved new location coord(%f, %f)",
+                    coord.latitude,
+                    coord.longitude]];
+  
+  [weatherService_ getWeatherByCoord:coord.latitude
+                           longitude:coord.longitude
+                             success:^(Weather *weather) {
+                               [debugger_ debug:[NSString stringWithFormat:
+                                                 @"name:%@, temp:%@, desc:%@, id:%@",
+                                                 weather.name,
+                                                 weather.temp,
+                                                 weather.desc,
+                                                 weather.weatherId]];
 
-                                    
-                                    locationView_.text = [weather.name uppercaseString];
-                                    tempView_.text =
-                                      [NSString stringWithFormat:@"%ld°", lround([weather.temp doubleValue])];
-                                    descriptionView_.text = [weather.desc uppercaseString];
-                                  }
-                                  failure:^(NSError *error) {
-                                    [debugger_ debug:@"Failed to retrieve weather data"];
-                                  }];
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 WeatherIconFactory *factory =
+                                  [WeatherIconFactory buildFactory:weather
+                                                               lat:coord.latitude
+                                                               lng:coord.longitude
+                                                               now:[NSDate date]];
+                                 iconView_.image = [factory build];
+                                 locationView_.text = [weather.name uppercaseString];
+                                 tempView_.text =
+                                  [NSString stringWithFormat:@"%ld°", lround([weather.temp doubleValue])];
+                                 descriptionView_.text = [weather.desc uppercaseString];
+                               });
+                              }
+                             failure:^(NSError *error) {
+                               [debugger_ debug:@"Failed to retrieve weather data"];
+                              }];
   [manager stopUpdatingLocation];
 }
 

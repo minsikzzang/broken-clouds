@@ -95,6 +95,16 @@ userInfo:nil \
 repeats:NO];  \
 }
 
+#define START_NSTIMER_(x, y, z, w) \
+if (!x) { \
+x = [NSTimer scheduledTimerWithTimeInterval:y \
+target:self  \
+selector:@selector(z)  \
+userInfo:nil \
+repeats:w];  \
+}
+
+
 #define ADD_OBSERVER(x, y, z, w) \
 [[NSNotificationCenter defaultCenter] addObserver:x \
 selector:@selector(y)  \

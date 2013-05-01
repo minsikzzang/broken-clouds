@@ -7,19 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Weather.h"
 
-@class Weather;
+@interface WeatherIconFactory : NSObject {
+@private
+}
 
-@interface WeatherIconFactory : NSObject
-
-- (id)initWithWeather:(Weather *)weather day:(BOOL)day;
+@property (nonatomic, assign) IFWeatherId weatherId;
+@property (nonatomic, assign) BOOL day;
 
 + (WeatherIconFactory *)buildFactory:(Weather *)weather
                                  lat:(double)lat
                                  lng:(double)lng
                                  now:(NSDate *)now;
 
-@property (nonatomic, assign) int weatherId;
-@property (nonatomic, assign) BOOL day;
+- (id)initWithWeather:(Weather *)weather day:(BOOL)day;
+
+- (UIImage *)build;
 
 @end

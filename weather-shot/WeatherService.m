@@ -15,10 +15,10 @@
 
 NSString const* kWeatherServerUrl = @"http://ec2-176-34-76-198.eu-west-1.compute.amazonaws.com:8080/weather-server";
 
-- (void)getWeatherByGoordinate:(double)latitude
-                     longitude:(double)longitude
-                       success:(void (^)(Weather *weather))success
-                       failure:(void (^)(NSError *error))failure {
+- (void)getWeatherByCoord:(double)latitude
+                longitude:(double)longitude
+                  success:(void (^)(Weather *weather))success
+                  failure:(void (^)(NSError *error))failure {
   NSString *uri = [NSString stringWithFormat:@"%@/weather?lat=%f&lng=%f",
                    kWeatherServerUrl, latitude, longitude];
   NSURL *url = [NSURL URLWithString:uri];

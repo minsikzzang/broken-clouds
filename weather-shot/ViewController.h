@@ -10,13 +10,14 @@
 
 @class UIDebugger;
 @class WeatherService;
+@class OutlinedLabel;
 
 @interface ViewController : UIViewController<CLLocationManagerDelegate, UIScrollViewDelegate> {
 @private
   NSMutableArray *mockups_;
   int currentMockup_;
-  // UIImageView *mockupView_;
   NSTimer *refreshTimer_;
+  NSTimer *dateTimer_;
   CLLocationManager *locationManager_;
   WeatherService *weatherService_;
   UIDebugger *debugger_;
@@ -24,7 +25,9 @@
   IBOutlet UILabel *tempView_;
   IBOutlet UILabel *locationView_;
   IBOutlet UILabel *descriptionView_;
+  IBOutlet OutlinedLabel *dateView_;
   IBOutlet UIImageView *imageView_;
+  IBOutlet UIImageView *iconView_;
   IBOutlet UIView *debugView_;
   IBOutlet UIScrollView *hiddenLayerView_;
 }

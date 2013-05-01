@@ -12,9 +12,9 @@
 
 @interface WeatherService : NSObject
 
-- (void)getWeatherByGoordinate:(double)latitude
-                     longitude:(double)longitude
-                       success:(void (^)(Weather *weather))success
-                       failure:(void (^)(NSError *error))failure;
+- (void)getWeatherByCoord:(double)latitude
+                longitude:(double)longitude
+                  success:(void (^)(Weather *weather))success
+                  failure:(void (^)(NSError *error))failure;
 
 @end
