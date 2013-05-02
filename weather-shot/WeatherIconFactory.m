@@ -26,7 +26,10 @@ static NSString const* iconMapJson =
 \"731\":{\"day\":\"mist.png\",\"night\":\"mist.png\"},\
 \"741\":{\"day\":\"mist.png\",\"night\":\"mist.png\"},\
 \"800\":{\"day\":\"sunny.png\",\"night\":\"clear-sky-night.png\"},\
-\"803\":{\"day\":\"overcast.png\",\"night\":\"overcast.png\"}}";
+\"801\":{\"day\":\"overcast.png\",\"night\":\"overcast.png\"},\
+\"802\":{\"day\":\"overcast.png\",\"night\":\"overcast.png\"},\
+\"803\":{\"day\":\"overcast.png\",\"night\":\"overcast.png\"},\
+\"804\":{\"day\":\"overcast.png\",\"night\":\"overcast.png\"}}";
 
 + (WeatherIconFactory *)buildFactory:(Weather *)weather
                                  lat:(double)lat
