@@ -15,11 +15,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1J-79-qv4"/>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-jE-T5T">
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CLEAR SKY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaO-fF-Zy8">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CLEAR SKY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="iaO-fF-Zy8">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="AHS-i2-qbh"/>
-                                            <constraint firstAttribute="width" constant="270" id="Mix-hF-Yqi"/>
+                                            <constraint firstAttribute="width" constant="290" id="E4u-C6-ePP"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,10 +39,10 @@
                                             <constraint firstAttribute="height" constant="15" id="IbQ-hI-dGg"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PADDINGTON" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvQ-H9-rP6">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PADDINGTON" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="WvQ-H9-rP6">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="JFf-V4-Vip"/>
+                                            <constraint firstAttribute="width" constant="250" id="4lh-fe-NBx"/>
                                             <constraint firstAttribute="height" constant="26" id="xbN-V1-TTi"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
@@ -67,12 +67,12 @@
                                             <constraint firstAttribute="width" constant="220" id="eRj-E3-CUX"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thursday 06:12:24 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9V-bi-lqn" customClass="OutlinedLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thursday 06:12:24 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Q9V-bi-lqn" customClass="OutlinedLabel">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="4vG-kZ-qM4"/>
-                                            <constraint firstAttribute="width" constant="220" id="9SQ-q6-dRX"/>
+                                            <constraint firstAttribute="width" constant="235" id="SKm-Mf-ixG"/>
+                                            <constraint firstAttribute="height" constant="23" id="lmq-Gw-Gwx"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="19"/>
+                                        <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,19 +81,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Q9V-bi-lqn" secondAttribute="bottom" constant="8" id="1GO-Uq-2Oo"/>
                                     <constraint firstItem="iaO-fF-Zy8" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="280" id="2sj-jG-eS0"/>
-                                    <constraint firstItem="pFu-EC-Cg5" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="280" id="BBK-1l-ou0"/>
+                                    <constraint firstAttribute="bottom" secondItem="Q9V-bi-lqn" secondAttribute="bottom" constant="5" id="CTZ-Ez-sSl"/>
+                                    <constraint firstItem="pFu-EC-Cg5" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="280" id="D3Q-MF-TlW"/>
                                     <constraint firstItem="f83-Qm-6sp" firstAttribute="trailing" secondItem="bvV-jE-T5T" secondAttribute="trailing" type="default" id="D5u-EB-L63"/>
-                                    <constraint firstItem="iaO-fF-Zy8" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="30" id="DOh-qq-xdJ"/>
                                     <constraint firstItem="ypK-A0-RwL" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="135" id="GJW-C8-vFB"/>
-                                    <constraint firstItem="ypK-A0-RwL" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="54" id="GSZ-OA-4le"/>
                                     <constraint firstItem="WvQ-H9-rP6" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="18" id="Lfk-Sz-O0V"/>
+                                    <constraint firstItem="iaO-fF-Zy8" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="c13-7t-Qdp"/>
                                     <constraint firstItem="f83-Qm-6sp" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" type="default" id="cPI-6M-KIk"/>
-                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="500" id="ecc-E9-TQx"/>
+                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="520" id="ejQ-r3-wvh"/>
+                                    <constraint firstItem="ypK-A0-RwL" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="54" id="hbI-5d-VP9"/>
                                     <constraint firstItem="oye-zW-k5z" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="44" id="jug-a9-52v"/>
-                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="90" id="u06-BT-vx6"/>
-                                    <constraint firstAttribute="trailing" secondItem="iaO-fF-Zy8" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ubU-yP-dfq"/>
+                                    <constraint firstItem="f83-Qm-6sp" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="140" id="lho-3G-Gci"/>
+                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="70" id="uJ1-rh-gWQ"/>
                                     <constraint firstItem="pFu-EC-Cg5" firstAttribute="centerY" secondItem="WvQ-H9-rP6" secondAttribute="centerY" type="default" id="v8W-BK-68i"/>
                                     <constraint firstItem="oye-zW-k5z" firstAttribute="leading" secondItem="WvQ-H9-rP6" secondAttribute="leading" type="default" id="yVc-PS-SNK"/>
                                     <constraint firstItem="WvQ-H9-rP6" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="18" id="zAU-UW-D1W"/>

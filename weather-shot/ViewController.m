@@ -17,7 +17,7 @@
 #import "WeatherService.h"
 
 static NSString *const kMockupName = @"mockup%d.png";
-const int kMockupNum = 15;
+const int kMockupNum = 17;
 const int kMockupRefresh = 5;
 const int kSecond = 1;
 

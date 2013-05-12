@@ -59,6 +59,8 @@
 		93D51BAD172F21D00054EA95 /* WeatherIconFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D51BAC172F21D00054EA95 /* WeatherIconFactory.m */; };
 		93F327621729D8A7002F6B2D /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327611729D8A7002F6B2D /* Weather.m */; };
 		93F327651729DAAE002F6B2D /* IFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F327641729DAAE002F6B2D /* IFObject.m */; };
+		93FC1FB01739C29100153CBD /* mockup16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93FC1FAE1739C29100153CBD /* mockup16@2x.png */; };
+		93FC1FB11739C29100153CBD /* mockup17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93FC1FAF1739C29100153CBD /* mockup17@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +140,8 @@
 		93F327611729D8A7002F6B2D /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		93F327631729DAAE002F6B2D /* IFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFObject.h; sourceTree = "<group>"; };
 		93F327641729DAAE002F6B2D /* IFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFObject.m; sourceTree = "<group>"; };
+		93FC1FAE1739C29100153CBD /* mockup16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup16@2x.png"; sourceTree = "<group>"; };
+		93FC1FAF1739C29100153CBD /* mockup17@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup17@2x.png"; sourceTree = "<group>"; };
 		BB70C44692264B62BE156C2A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -267,6 +271,8 @@
 		938FACC11703AE6700B0E65B /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				93FC1FAE1739C29100153CBD /* mockup16@2x.png */,
+				93FC1FAF1739C29100153CBD /* mockup17@2x.png */,
 				93D1D5E81731D981006D1D88 /* menu@2x.png */,
 				93D1D5D31731CB62006D1D88 /* clear-sky-night@2x.png */,
 				93D1D5D41731CB62006D1D88 /* cloudy-with-light-rain@2x.png */,
@@ -401,6 +407,8 @@
 				93D1D5E31731CB62006D1D88 /* sunny@2x.png in Resources */,
 				93D1D5E41731CB62006D1D88 /* thunderstorms@2x.png in Resources */,
 				93D1D5E91731D981006D1D88 /* menu@2x.png in Resources */,
+				93FC1FB01739C29100153CBD /* mockup16@2x.png in Resources */,
+				93FC1FB11739C29100153CBD /* mockup17@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
