@@ -21,7 +21,8 @@
   CLLocationManager *locationManager_;
   WeatherService *weatherService_;
   UIDebugger *debugger_;
-
+  UIPageControl *pageControl_;
+  
   IBOutlet UILabel *tempView_;
   IBOutlet UILabel *locationView_;
   IBOutlet UILabel *descriptionView_;
@@ -30,6 +31,7 @@
   IBOutlet UIImageView *iconView_;
   IBOutlet UIView *debugView_;
   IBOutlet UIScrollView *hiddenLayerView_;
+  IBOutlet UIScrollView *hourlyWeatherView_;
 }
 
 @end

@@ -17,7 +17,7 @@
 #import "WeatherService.h"
 
 static NSString *const kMockupName = @"mockup%d.png";
-const int kMockupNum = 17;
+const int kMockupNum = 19;
 const int kMockupRefresh = 5;
 const int kSecond = 1;
 
@@ -66,10 +66,13 @@ const int kSecond = 1;
   // Display first image and start timer
   currentMockup_ = 0;
   [imageView_ setImage:[self getCurrentMockup]];
-    
+
   hiddenLayerView_.delegate = self;
-  hiddenLayerView_.contentSize = CGSizeMake(320.0, 578.0);
-  [hiddenLayerView_ addSubview:tempView_];
+  hiddenLayerView_.contentSize = CGSizeMake(640.0, 1136.0);
+  
+  hourlyWeatherView_.pagingEnabled = YES;
+  hourlyWeatherView_.frame = CGRectMake(0, 0, 320.0, 60.0);
+  [hourlyWeatherView_ setContentSize:CGSizeMake(320.0 * 2, 60.0)];
   
   // Initialize and start mockup refrsh timer
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
@@ -119,8 +122,7 @@ const int kSecond = 1;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-  CLLocationCoordinate2D coord = newLocation.coordinate;
-  
+  CLLocationCoordinate2D coord = newLocation.coordinate;  
   [debugger_ debug:[NSString stringWithFormat:@"Retrieved new location coord(%f, %f)",
                     coord.latitude,
                     coord.longitude]];

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1C4213940FE045559E0DCBB6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F2E319F22224C16AB5CA68E /* libPods.a */; };
+		9321E86A1741C26400F648AA /* heavy-rain-showers.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E8691741C26400F648AA /* heavy-rain-showers.png */; };
+		9321E86D1741C35400F648AA /* mockup18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E86B1741C35400F648AA /* mockup18@2x.png */; };
+		9321E86E1741C35400F648AA /* mockup19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E86C1741C35400F648AA /* mockup19@2x.png */; };
 		932ABE581714D3D0009A9946 /* WeatherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 932ABE571714D3D0009A9946 /* WeatherService.m */; };
 		9360BDB1171F5CB500C90AC9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9360BDB0171F5CB500C90AC9 /* CoreLocation.framework */; };
 		938FAC5D1703A61C00B0E65B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 938FAC5C1703A61C00B0E65B /* UIKit.framework */; };
@@ -69,17 +72,20 @@
 			containerPortal = 938FAC511703A61C00B0E65B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 938FAC581703A61C00B0E65B;
-			remoteInfo = "weather-shot";
+			remoteInfo = "broken-clouds";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8F2E319F22224C16AB5CA68E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9321E8691741C26400F648AA /* heavy-rain-showers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heavy-rain-showers.png"; sourceTree = "<group>"; };
+		9321E86B1741C35400F648AA /* mockup18@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup18@2x.png"; sourceTree = "<group>"; };
+		9321E86C1741C35400F648AA /* mockup19@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup19@2x.png"; sourceTree = "<group>"; };
 		932ABE561714D3D0009A9946 /* WeatherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherService.h; sourceTree = "<group>"; };
 		932ABE571714D3D0009A9946 /* WeatherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherService.m; sourceTree = "<group>"; };
 		9360BDB0171F5CB500C90AC9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9360BDB2171F5E6000C90AC9 /* BasicTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicTypes.h; sourceTree = "<group>"; };
-		938FAC591703A61C00B0E65B /* weather-shot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weather-shot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		938FAC591703A61C00B0E65B /* broken-clouds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "broken-clouds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		938FAC5C1703A61C00B0E65B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		938FAC5E1703A61C00B0E65B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		938FAC601703A61C00B0E65B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,7 +182,7 @@
 			children = (
 				9360BDB0171F5CB500C90AC9 /* CoreLocation.framework */,
 				938FAC9A1703A67800B0E65B /* Default-568h@2x.png */,
-				938FAC621703A61C00B0E65B /* weather-shot */,
+				938FAC621703A61C00B0E65B /* broken-clouds */,
 				938FAC891703A61D00B0E65B /* weather-shotTests */,
 				938FAC5B1703A61C00B0E65B /* Frameworks */,
 				938FAC5A1703A61C00B0E65B /* Products */,
@@ -187,7 +193,7 @@
 		938FAC5A1703A61C00B0E65B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				938FAC591703A61C00B0E65B /* weather-shot.app */,
+				938FAC591703A61C00B0E65B /* broken-clouds.app */,
 				938FAC821703A61D00B0E65B /* weather-shotTests.octest */,
 			);
 			name = Products;
@@ -205,7 +211,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		938FAC621703A61C00B0E65B /* weather-shot */ = {
+		938FAC621703A61C00B0E65B /* broken-clouds */ = {
 			isa = PBXGroup;
 			children = (
 				93D1D5E51731D034006D1D88 /* EDSunriseSet.h */,
@@ -232,7 +238,7 @@
 				93D1D5EA1731E190006D1D88 /* OutlinedLabel.h */,
 				93D1D5EB1731E190006D1D88 /* OutlinedLabel.m */,
 			);
-			path = "weather-shot";
+			path = "broken-clouds";
 			sourceTree = "<group>";
 		};
 		938FAC631703A61D00B0E65B /* Supporting Files */ = {
@@ -271,6 +277,9 @@
 		938FACC11703AE6700B0E65B /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				9321E86B1741C35400F648AA /* mockup18@2x.png */,
+				9321E86C1741C35400F648AA /* mockup19@2x.png */,
+				9321E8691741C26400F648AA /* heavy-rain-showers.png */,
 				93FC1FAE1739C29100153CBD /* mockup16@2x.png */,
 				93FC1FAF1739C29100153CBD /* mockup17@2x.png */,
 				93D1D5E81731D981006D1D88 /* menu@2x.png */,
@@ -305,9 +314,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		938FAC581703A61C00B0E65B /* weather-shot */ = {
+		938FAC581703A61C00B0E65B /* broken-clouds */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 938FAC941703A61D00B0E65B /* Build configuration list for PBXNativeTarget "weather-shot" */;
+			buildConfigurationList = 938FAC941703A61D00B0E65B /* Build configuration list for PBXNativeTarget "broken-clouds" */;
 			buildPhases = (
 				12DB2310333B4114BFCA8778 /* Check Pods Manifest.lock */,
 				938FAC551703A61C00B0E65B /* Sources */,
@@ -319,9 +328,9 @@
 			);
 			dependencies = (
 			);
-			name = "weather-shot";
-			productName = "weather-shot";
-			productReference = 938FAC591703A61C00B0E65B /* weather-shot.app */;
+			name = "broken-clouds";
+			productName = "broken-clouds";
+			productReference = 938FAC591703A61C00B0E65B /* broken-clouds.app */;
 			productType = "com.apple.product-type.application";
 		};
 		938FAC811703A61D00B0E65B /* weather-shotTests */ = {
@@ -352,7 +361,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "min kim";
 			};
-			buildConfigurationList = 938FAC541703A61C00B0E65B /* Build configuration list for PBXProject "weather-shot" */;
+			buildConfigurationList = 938FAC541703A61C00B0E65B /* Build configuration list for PBXProject "broken-clouds" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -364,7 +373,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				938FAC581703A61C00B0E65B /* weather-shot */,
+				938FAC581703A61C00B0E65B /* broken-clouds */,
 				938FAC811703A61D00B0E65B /* weather-shotTests */,
 			);
 		};
@@ -409,6 +418,9 @@
 				93D1D5E91731D981006D1D88 /* menu@2x.png in Resources */,
 				93FC1FB01739C29100153CBD /* mockup16@2x.png in Resources */,
 				93FC1FB11739C29100153CBD /* mockup17@2x.png in Resources */,
+				9321E86A1741C26400F648AA /* heavy-rain-showers.png in Resources */,
+				9321E86D1741C35400F648AA /* mockup18@2x.png in Resources */,
+				9321E86E1741C35400F648AA /* mockup19@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +509,7 @@
 /* Begin PBXTargetDependency section */
 		938FAC881703A61D00B0E65B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 938FAC581703A61C00B0E65B /* weather-shot */;
+			target = 938FAC581703A61C00B0E65B /* broken-clouds */;
 			targetProxy = 938FAC871703A61D00B0E65B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -599,8 +611,8 @@
 			baseConfigurationReference = BB70C44692264B62BE156C2A /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "weather-shot/weather-shot-Prefix.pch";
-				INFOPLIST_FILE = "weather-shot/weather-shot-Info.plist";
+				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
+				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -611,8 +623,8 @@
 			baseConfigurationReference = BB70C44692264B62BE156C2A /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "weather-shot/weather-shot-Prefix.pch";
-				INFOPLIST_FILE = "weather-shot/weather-shot-Info.plist";
+				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
+				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -621,13 +633,13 @@
 		938FAC981703A61D00B0E65B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/weather-shot.app/weather-shot";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/broken-clouds.app/broken-clouds";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "weather-shot/weather-shot-Prefix.pch";
+				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
 				INFOPLIST_FILE = "weather-shotTests/weather-shotTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -638,7 +650,7 @@
 		938FAC991703A61D00B0E65B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/weather-shot.app/weather-shot";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/broken-clouds.app/broken-clouds";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -655,7 +667,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		938FAC541703A61C00B0E65B /* Build configuration list for PBXProject "weather-shot" */ = {
+		938FAC541703A61C00B0E65B /* Build configuration list for PBXProject "broken-clouds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				938FAC921703A61D00B0E65B /* Debug */,
@@ -664,7 +676,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		938FAC941703A61D00B0E65B /* Build configuration list for PBXNativeTarget "weather-shot" */ = {
+		938FAC941703A61D00B0E65B /* Build configuration list for PBXNativeTarget "broken-clouds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				938FAC951703A61D00B0E65B /* Debug */,

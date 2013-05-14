@@ -26,7 +26,14 @@ static NSString const* iconMapJson =
 \"312\":{\"day\":\"cloudy-with-light-rain.png\",\"night\":\"cloudy-with-light-rain.png\"},\
 \"321\":{\"day\":\"cloudy-with-light-rain.png\",\"night\":\"cloudy-with-light-rain.png\"},\
 \"500\":{\"day\":\"cloudy-with-light-rain.png\",\"night\":\"cloudy-with-light-rain.png\"},\
-\"501\":{\"day\":\"cloudy-with-light-rain.png\",\"night\":\"cloudy-with-light-rain.png\"},\
+\"501\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"502\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"503\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"504\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"511\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"520\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"521\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
+\"522\":{\"day\":\"heavy-hail-shower.png\",\"night\":\"heavy-hail-shower.png\"},\
 \"701\":{\"day\":\"mist.png\",\"night\":\"clear-sky-night.png\"},\
 \"711\":{\"day\":\"mist.png\",\"night\":\"mist.png\"},\
 \"721\":{\"day\":\"mist.png\",\"night\":\"clear-sky-night.png\"},\
