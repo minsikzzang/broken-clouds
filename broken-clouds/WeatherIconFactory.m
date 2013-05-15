@@ -59,14 +59,28 @@ static NSString const* iconMapJson =
                 [now compare:sun.sunset] == -1)] autorelease];
 }
 
++ (WeatherIconFactory *)buildFactory:(NSString *)weatherId
+                                 day:(BOOL)day {
+  return [[WeatherIconFactory alloc] initWithWeatherId:weatherId day:day];
+}
+
 - (id)initWithWeather:(Weather *)weather day:(BOOL)day_ {
   self = [super init];
   if (self) {
-    self.day = day_;
-    self.weatherId = (IFWeatherId)[weather.weatherId intValue];
+    [self initWithWeatherId:weather.weatherId day:day_];
   }
   return self;
 }
+          
+- (id)initWithWeatherId:(NSString *)id day:(BOOL)day_ {
+  self = [super init];
+  if (self) {
+    self.day = day_;
+    self.weatherId = (IFWeatherId)[id intValue];
+  }
+  return self;
+}
+
 
 - (UIImage *)build {
   NSDictionary *o =

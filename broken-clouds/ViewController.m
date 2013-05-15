@@ -10,6 +10,8 @@
 
 #import "BasicTypes.h"
 #include <math.h>
+#import "Forecast.h"
+#import "HiddenScrollView.h"
 #import "OutlinedLabel.h"
 #import "UIDebugger.h"
 #import "Weather.h"
@@ -20,7 +22,7 @@ static NSString *const kMockupName = @"mockup%d.png";
 const int kMockupNum = 19;
 const int kMockupRefresh = 5;
 const int kSecond = 1;
-
+const int kMaxHourlyForecast = 12;
 
 @interface ViewController ()
 
@@ -67,18 +69,64 @@ const int kSecond = 1;
   currentMockup_ = 0;
   [imageView_ setImage:[self getCurrentMockup]];
 
-  hiddenLayerView_.delegate = self;
-  hiddenLayerView_.contentSize = CGSizeMake(640.0, 1136.0);
+  hiddenLayerView_.delegate = self;  
   
-  hourlyWeatherView_.pagingEnabled = YES;
-  hourlyWeatherView_.frame = CGRectMake(0, 0, 320.0, 60.0);
-  [hourlyWeatherView_ setContentSize:CGSizeMake(320.0 * 2, 60.0)];
+  hours_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
+  hourlyTemps_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
+  hourlyWeathers_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
+  
+  for (int i = 0; i < kMaxHourlyForecast; ++i) {
+    int x = (i > 5 ? 7: 0);
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"GillSans-Bold" size:13];
+    label.text = [NSString stringWithFormat:@"%02d", i * 3];
+    label.frame = CGRectMake(330.0 + (i * 52) + x, 5.0, 40.0, 20.0);
+    label.backgroundColor = [UIColor clearColor];
+    [hourlyWeatherView_ addSubview:label];
+    [hours_ addObject:label];
+    [label release];
+    
+    UILabel *temp = [[UILabel alloc] init];
+    temp.textColor = [UIColor whiteColor];
+    temp.textAlignment = NSTextAlignmentCenter;
+    temp.font = [UIFont fontWithName:@"GillSans-Bold" size:17];
+    temp.text = [NSString stringWithFormat:@"%02d°", i * 3];
+    temp.frame = CGRectMake(330.0 + (i * 52) + x, 60.0, 40.0, 20.0);
+    temp.backgroundColor = [UIColor clearColor];    
+    [hourlyWeatherView_ addSubview:temp];
+    [hourlyTemps_ addObject:temp];
+    [temp release];
+    
+    UIImageView *icon = [[UIImageView alloc] init];
+    icon.frame = CGRectMake(330.0 + (i * 52) + x, 20.0, 40.0, 40.0);
+    icon.backgroundColor = [UIColor clearColor];
+    icon.contentMode = UIViewContentModeScaleAspectFit;
+    [hourlyWeatherView_ addSubview:icon];
+    [hourlyWeathers_ addObject:icon];
+    [icon release];
+  }
   
   // Initialize and start mockup refrsh timer
   START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
   
   // Initialize and start date timer
   START_NSTIMER_(dateTimer_, kSecond, updateDate, YES)
+}
+
+- (void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  
+  hourlyWeatherView_.contentSize = CGSizeMake(hourlyWeatherView_.frame.size.width * 3,
+                                              hourlyWeatherView_.frame.size.height);
+  hiddenLayerView_.contentSize = CGSizeMake(hiddenLayerView_.frame.size.width,
+                                            hiddenLayerView_.frame.size.height + 300.0);
+  // hourlyWeatherView_.delegate = self;
+  // hourlyWeatherView_.scrollEnabled = YES;
+  // hourlyWeatherView_.pagingEnabled = YES;
+  
 }
 
 - (void)refreshScreen {
@@ -107,6 +155,9 @@ const int kSecond = 1;
 - (void)dealloc {
   STOP_NSTIMER(dateTimer_)
   STOP_NSTIMER(refreshTimer_)
+  SAFE_RELEASE(hours_)
+  SAFE_RELEASE(hourlyTemps_)
+  SAFE_RELEASE(hourlyWeathers_)
   SAFE_RELEASE(debugView_)
   SAFE_RELEASE(locationManager_)
   SAFE_RELEASE(tempView_)
@@ -153,6 +204,35 @@ const int kSecond = 1;
                              failure:^(NSError *error) {
                                [debugger_ debug:@"Failed to retrieve weather data"];
                               }];
+  
+  [weatherService_ getForecastByCoord:coord.latitude
+                            longitude:coord.longitude
+                                daily:NO
+                              success:^(NSArray *forecasts, BOOL daily) {
+                                for (int i = 0; i < kMaxHourlyForecast; ++i) {
+                                  Forecast *f = [forecasts objectAtIndex:i];
+                                  NSDateFormatter *timeFormat = [[[NSDateFormatter alloc] init] autorelease];
+                                  [timeFormat setDateFormat:@"HH"];
+                                  timeFormat.locale =
+                                    [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
+                                  NSString *dt = [NSString stringWithFormat:@"%@",
+                                   [timeFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[f.dt doubleValue]]]];
+                                  
+                                  WeatherIconFactory *factory =
+                                    [WeatherIconFactory buildFactory:[f.weather objectForKey:@"id"]
+                                                                 day:YES];
+
+                                  NSLog(@"temp: %@, timestamp: %@, weather: %@", f.temp, dt, [f.weather objectForKey:@"id"]);
+                                  // NSLog(@"high:%@, low:%@", f.high, f.low);
+                                  ((UILabel *)[hours_ objectAtIndex:i]).text = dt;
+                                  ((UILabel *)[hourlyTemps_ objectAtIndex:i]).text = [NSString stringWithFormat:@"%ld°", lround([f.temp doubleValue])];
+                                  ((UIImageView *)[hourlyWeathers_ objectAtIndex:i]).image = [factory build];
+                                }
+                              }
+                              failure:^(NSError *error) {
+                                
+                              }];
+  
   [manager stopUpdatingLocation];
 }
 
@@ -165,6 +245,7 @@ const int kSecond = 1;
 #pragma mark - UIScrollViewDelegate methods
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView

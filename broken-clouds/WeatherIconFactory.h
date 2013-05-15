@@ -21,7 +21,12 @@
                                  lng:(double)lng
                                  now:(NSDate *)now;
 
++ (WeatherIconFactory *)buildFactory:(NSString *)weatherId
+                                 day:(BOOL)day;
+
 - (id)initWithWeather:(Weather *)weather day:(BOOL)day;
+
+- (id)initWithWeatherId:(NSString *)id day:(BOOL)day_;
 
 - (UIImage *)build;
 

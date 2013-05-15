@@ -17,4 +17,10 @@
                   success:(void (^)(Weather *weather))success
                   failure:(void (^)(NSError *error))failure;
 
+- (void)getForecastByCoord:(double)latitude
+                 longitude:(double)longitude
+                     daily:(BOOL)daily
+                   success:(void (^)(NSArray *forecasts, BOOL daily))success
+                   failure:(void (^)(NSError *error))failure;
+
 @end

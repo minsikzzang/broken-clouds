@@ -11,6 +11,7 @@
 @class UIDebugger;
 @class WeatherService;
 @class OutlinedLabel;
+@class HiddenScrollView;
 
 @interface ViewController : UIViewController<CLLocationManagerDelegate, UIScrollViewDelegate> {
 @private
@@ -22,6 +23,10 @@
   WeatherService *weatherService_;
   UIDebugger *debugger_;
   UIPageControl *pageControl_;
+  NSDate *threeHourly_;
+  NSMutableArray *hours_;
+  NSMutableArray *hourlyTemps_;
+  NSMutableArray *hourlyWeathers_;
   
   IBOutlet UILabel *tempView_;
   IBOutlet UILabel *locationView_;

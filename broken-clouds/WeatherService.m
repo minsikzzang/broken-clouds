@@ -37,4 +37,29 @@ NSString const* kWeatherServerUrl = @"http://ec2-176-34-76-198.eu-west-1.compute
   [operation start];
 }
 
+- (void)getForecastByCoord:(double)latitude
+                 longitude:(double)longitude
+                     daily:(BOOL)daily
+                   success:(void (^)(NSArray *forecasts, BOOL daily))success
+                   failure:(void (^)(NSError *error))failure {
+  NSString *uri = [NSString stringWithFormat:@"%@/forecast?lat=%f&lng=%f&daily=%@&cnt=5",
+                   kWeatherServerUrl, latitude, longitude,
+                   (daily ? @"true" : @"false")];
+  NSURL *url = [NSURL URLWithString:uri];
+  NSURLRequest *request = [NSURLRequest requestWithURL:url];
+  
+  AFJSONRequestOperation *operation =
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+     NSDictionary *resp = [IFObject ifObjectWrappingObject:JSON];
+     success([resp objectForKey:@"forecasts"], daily);
+   }
+   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+     failure(error);
+   }];
+  
+  [operation start];
+
+}
 @end
