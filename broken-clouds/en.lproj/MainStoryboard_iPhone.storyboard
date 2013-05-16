@@ -91,7 +91,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oye-zW-k5z">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="KRO-pF-P8G"/>
+                                            <constraint firstAttribute="width" constant="250" id="vM4-sb-VUa"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="64"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,7 +221,6 @@
                                     <constraint firstItem="XHu-4R-Elr" firstAttribute="leading" secondItem="0zc-Bd-t2Y" secondAttribute="leading" constant="430" id="NEq-dY-Uk1"/>
                                     <constraint firstItem="fSh-Iv-1UJ" firstAttribute="leading" secondItem="0zc-Bd-t2Y" secondAttribute="leading" constant="480" id="Odp-kF-oHa"/>
                                     <constraint firstItem="DtU-jS-9TA" firstAttribute="trailing" secondItem="CxJ-4B-QJd" secondAttribute="trailing" type="default" id="PKx-Oh-LeN"/>
-                                    <constraint firstItem="oye-zW-k5z" firstAttribute="leading" secondItem="0zc-Bd-t2Y" secondAttribute="leading" constant="18" id="QDM-d5-fCR"/>
                                     <constraint firstItem="TcD-mJ-BSN" firstAttribute="bottom" secondItem="0zc-Bd-t2Y" secondAttribute="bottom" type="default" id="SAO-1X-3BU"/>
                                     <constraint firstItem="OiX-xp-DPA" firstAttribute="bottom" secondItem="0zc-Bd-t2Y" secondAttribute="bottom" type="default" id="T2X-wj-u9K"/>
                                     <constraint firstItem="OiX-xp-DPA" firstAttribute="leading" secondItem="CxJ-4B-QJd" secondAttribute="leading" type="default" id="UlA-fz-cL9"/>
@@ -241,6 +240,7 @@
                                     <constraint firstItem="oye-zW-k5z" firstAttribute="centerY" secondItem="hrr-a8-tik" secondAttribute="centerY" type="default" id="k37-z2-gpF"/>
                                     <constraint firstItem="O8I-9X-yEa" firstAttribute="trailing" secondItem="hrr-a8-tik" secondAttribute="trailing" type="default" id="lHf-Tc-Jjc"/>
                                     <constraint firstItem="4is-p7-kdo" firstAttribute="trailing" secondItem="rLM-xT-Xyf" secondAttribute="trailing" type="default" id="mZx-H5-4fd"/>
+                                    <constraint firstItem="oye-zW-k5z" firstAttribute="leading" secondItem="0zc-Bd-t2Y" secondAttribute="leading" constant="13" id="miz-Tm-SPT"/>
                                     <constraint firstItem="4is-p7-kdo" firstAttribute="leading" secondItem="0zc-Bd-t2Y" secondAttribute="leading" constant="380" id="otd-N6-N5X"/>
                                     <constraint firstItem="Vze-4x-raC" firstAttribute="leading" secondItem="hrr-a8-tik" secondAttribute="leading" type="default" id="pEK-gn-OOY"/>
                                     <constraint firstItem="oQF-Lx-LcI" firstAttribute="bottom" secondItem="rLM-xT-Xyf" secondAttribute="bottom" type="default" id="pUb-Cn-omz"/>

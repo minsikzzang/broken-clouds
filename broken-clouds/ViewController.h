@@ -27,6 +27,10 @@
   NSMutableArray *hours_;
   NSMutableArray *hourlyTemps_;
   NSMutableArray *hourlyWeathers_;
+  NSMutableArray *days_;
+  NSMutableArray *dailyMaxTemps_;
+  NSMutableArray *dailyMinTemps_;
+  NSMutableArray *dailyWeathers_;
   
   IBOutlet UILabel *tempView_;
   IBOutlet UILabel *locationView_;

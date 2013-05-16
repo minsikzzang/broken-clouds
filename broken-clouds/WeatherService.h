@@ -20,6 +20,7 @@
 - (void)getForecastByCoord:(double)latitude
                  longitude:(double)longitude
                      daily:(BOOL)daily
+                     count:(int)count
                    success:(void (^)(NSArray *forecasts, BOOL daily))success
                    failure:(void (^)(NSError *error))failure;
 

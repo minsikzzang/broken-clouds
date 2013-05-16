@@ -40,11 +40,12 @@ NSString const* kWeatherServerUrl = @"http://ec2-176-34-76-198.eu-west-1.compute
 - (void)getForecastByCoord:(double)latitude
                  longitude:(double)longitude
                      daily:(BOOL)daily
+                     count:(int)count
                    success:(void (^)(NSArray *forecasts, BOOL daily))success
                    failure:(void (^)(NSError *error))failure {
-  NSString *uri = [NSString stringWithFormat:@"%@/forecast?lat=%f&lng=%f&daily=%@&cnt=5",
+  NSString *uri = [NSString stringWithFormat:@"%@/forecast?lat=%f&lng=%f&daily=%@&cnt=%d",
                    kWeatherServerUrl, latitude, longitude,
-                   (daily ? @"true" : @"false")];
+                   (daily ? @"true" : @"false"), count];
   NSURL *url = [NSURL URLWithString:uri];
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
   
