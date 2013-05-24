@@ -17,6 +17,7 @@
 #import "Weather.h"
 #import "WeatherIconFactory.h"
 #import "WeatherService.h"
+#import "WeatherPhotoService.h"
 
 static NSString *const kMockupName = @"mockup%d.png";
 const int kMockupNum = 19;
@@ -24,8 +25,8 @@ const int kMockupRefresh = 5;
 const int kSecond = 1;
 const int kMaxHourlyForecast = 12;
 const int kDailyForecastItemHeight = 40;
-const int kMaxDailyForecast = 5;
-const int kMarginUnderScreen = 10;
+const int kMaxDailyForecast = 6;
+const int kMarginUnderScreen = 50;
 const int kPoweredByHeight = 20;
 
 @interface ViewController ()
@@ -33,6 +34,10 @@ const int kPoweredByHeight = 20;
 - (UIImage *)getCurrentMockup;
 - (void)refreshScreen;
 - (void)updateDate;
+- (void)handleWeather:(Weather *)weather
+            withCoord:(CLLocationCoordinate2D)coord;
+- (void)handleDailyForecast:(NSArray *)forecasts;
+- (void)handleHourlyForecast:(NSArray *)forecasts;
 
 @end
 
@@ -44,7 +49,8 @@ const int kPoweredByHeight = 20;
       currentMockup_ = 0;
     }
     return [mockups_ objectAtIndex:currentMockup_++];
-  }  
+  } 
+  return nil;
 }
 
 - (void)viewDidLoad {
@@ -52,6 +58,7 @@ const int kPoweredByHeight = 20;
   
 	// Initialize location manager to get current location data
   weatherService_ = [[WeatherService alloc] init];
+  photoService_ = [[WeatherPhotoService alloc] init];
   
   debugger_ = [[UIDebugger alloc] init];
   debugger_.parent = debugView_;
@@ -60,18 +67,20 @@ const int kPoweredByHeight = 20;
   locationManager_ = [[CLLocationManager alloc] init];
   locationManager_.delegate = self;
   [locationManager_ startUpdatingLocation];
-  
+    
   // Load all mockup images and start timer to display in roundrobin way.
   mockups_ = [[NSMutableArray alloc] init];
   
+  /*
   for (int i = 0; i < kMockupNum; ++i) {
     NSString *mockup = [NSString stringWithFormat:kMockupName, i + 1];
     [mockups_ addObject:[UIImage imageNamed:mockup]];
   }
-
+*/
+  
   // Display first image and start timer
   currentMockup_ = 0;
-  [imageView_ setImage:[self getCurrentMockup]];
+  // [imageView_ setImage:[self getCurrentMockup]];
 
   hiddenLayerView_.delegate = self;
   
@@ -213,9 +222,6 @@ const int kPoweredByHeight = 20;
     [view release];    
   }
   
-  // Initialize and start mockup refrsh timer
-  START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
-  
   // Initialize and start date timer
   START_NSTIMER_(dateTimer_, kSecond, updateDate, YES)
 }
@@ -277,7 +283,107 @@ const int kPoweredByHeight = 20;
   SAFE_RELEASE(locationView_)
   SAFE_RELEASE(mockups_)
   SAFE_RELEASE(weatherService_)
+  SAFE_RELEASE(photoService_)
   [super dealloc];
+}
+
+- (NSString *)tp:(NSString *)t {
+  return [t
+   stringByReplacingOccurrencesOfString:@"@2x" withString:@""];
+}
+
+- (void)handleWeather:(Weather *)weather
+            withCoord:(CLLocationCoordinate2D)coord {
+  [debugger_ debug:[NSString stringWithFormat:
+                    @"name:%@, temp:%@, desc:%@, id:%@",
+                    weather.name,
+                    weather.temp,
+                    weather.desc,
+                    weather.weatherId]];
+  
+  long now = [[NSNumber numberWithDouble:[[NSDate date]
+                                         timeIntervalSince1970]]
+             longValue];
+  [photoService_ getWeatherPhotoByCoord:coord.latitude
+                              longitude:coord.longitude
+                              weatherId:[weather.weatherId intValue]
+                              timestamp:now
+                                    day:YES
+                                success:^(NSArray *photos) {
+                                  STOP_NSTIMER(refreshTimer_)
+                                  
+                                  for (id photo in photos) {
+                                    [mockups_ addObject:[UIImage imageNamed:[self tp:[photo valueForKey:@"url"]]]];
+                                    // NSLog(@"%@", [self tp:[photo valueForKey:@"url"]]);
+                                  }
+                                  
+                                  // Initialize and start mockup refrsh timer
+                                  START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
+                                }
+                                failure:^(NSError *error) {
+
+                                }];
+                                  
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    WeatherIconFactory *factory =
+      [WeatherIconFactory buildFactory:weather
+                                   lat:coord.latitude
+                                   lng:coord.longitude
+                                   now:[NSDate date]];
+    iconView_.image = [factory build];
+    locationView_.text = [weather.name uppercaseString];
+    tempView_.text =
+      [NSString stringWithFormat:@"%ld°", lround([weather.temp doubleValue])];
+    descriptionView_.text = [weather.desc uppercaseString];
+  });
+}
+
+- (void)handleDailyForecast:(NSArray *)forecasts {
+  for (int i = 0; i < kMaxDailyForecast; ++i) {
+    Forecast *f = [forecasts objectAtIndex:i];
+    NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
+    [format setDateFormat:@"EEEE"];
+    format.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]
+                     autorelease];
+    NSString *dt = [NSString stringWithFormat:@"%@",
+                    [format stringFromDate:
+                     [NSDate dateWithTimeIntervalSince1970:[f.dt doubleValue]]]];
+    
+    WeatherIconFactory *factory =
+      [WeatherIconFactory buildFactory:[f.weather objectForKey:@"id"]
+                                   day:YES];
+    
+    ((UILabel *)[days_ objectAtIndex:i]).text = dt;
+    ((UILabel *)[dailyMinTemps_ objectAtIndex:i]).text =
+      [NSString stringWithFormat:@"%02ld°", lround([f.low doubleValue])];
+    ((UILabel *)[dailyMaxTemps_ objectAtIndex:i]).text =
+      [NSString stringWithFormat:@"%02ld° / ", lround([f.high doubleValue])];
+    ((UIImageView *)[dailyWeathers_ objectAtIndex:i]).image = [factory build];
+  }
+}
+
+- (void)handleHourlyForecast:(NSArray *)forecasts {
+  for (int i = 0; i < kMaxHourlyForecast; ++i) {
+    Forecast *f = [forecasts objectAtIndex:i];
+    NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
+    [format setDateFormat:@"HH"];
+    format.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]
+                     autorelease];
+    NSString *dt = [NSString stringWithFormat:@"%@",
+                    [format stringFromDate:
+                     [NSDate dateWithTimeIntervalSince1970:[f.dt doubleValue]]]];
+    int hour = [dt intValue];
+    
+    WeatherIconFactory *factory =
+      [WeatherIconFactory buildFactory:[f.weather objectForKey:@"id"]
+                                   day:(7 < hour && hour < 19)];
+    
+    ((UILabel *)[hours_ objectAtIndex:i]).text = dt;
+    ((UILabel *)[hourlyTemps_ objectAtIndex:i]).text =
+      [NSString stringWithFormat:@"%02ld°", lround([f.temp doubleValue])];
+    ((UIImageView *)[hourlyWeathers_ objectAtIndex:i]).image = [factory build];
+  }
 }
 
 #pragma mark -
@@ -286,34 +392,15 @@ const int kPoweredByHeight = 20;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-  CLLocationCoordinate2D coord = newLocation.coordinate;  
+  CLLocationCoordinate2D coord = newLocation.coordinate;
   [debugger_ debug:[NSString stringWithFormat:@"Retrieved new location coord(%f, %f)",
                     coord.latitude,
                     coord.longitude]];
-  
+   
   [weatherService_ getWeatherByCoord:coord.latitude
                            longitude:coord.longitude
                              success:^(Weather *weather) {
-                               [debugger_ debug:[NSString stringWithFormat:
-                                                 @"name:%@, temp:%@, desc:%@, id:%@",
-                                                 weather.name,
-                                                 weather.temp,
-                                                 weather.desc,
-                                                 weather.weatherId]];
-
-                               dispatch_async(dispatch_get_main_queue(), ^{
-                                 WeatherIconFactory *factory =
-                                  [WeatherIconFactory buildFactory:weather
-                                                               lat:coord.latitude
-                                                               lng:coord.longitude
-                                                               now:[NSDate date]];
-                                 iconView_.image = [factory build];
-                                 locationView_.text = [weather.name uppercaseString];
-                                 tempView_.text =
-                                  [NSString stringWithFormat:@"%ld°",
-                                   lround([weather.temp doubleValue])];
-                                 descriptionView_.text = [weather.desc uppercaseString];
-                               });
+                               [self handleWeather:weather withCoord:coord];
                               }
                              failure:^(NSError *error) {
                                [debugger_ debug:@"Failed to retrieve weather data"];
@@ -323,26 +410,8 @@ const int kPoweredByHeight = 20;
                             longitude:coord.longitude
                                 daily:NO
                                 count:kMaxHourlyForecast
-                              success:^(NSArray *forecasts, BOOL daily) {
-                                for (int i = 0; i < kMaxHourlyForecast; ++i) {
-                                  Forecast *f = [forecasts objectAtIndex:i];
-                                  NSDateFormatter *timeFormat =
-                                    [[[NSDateFormatter alloc] init] autorelease];
-                                  [timeFormat setDateFormat:@"HH"];
-                                  timeFormat.locale =
-                                    [[[NSLocale alloc]
-                                      initWithLocaleIdentifier:@"en_US"] autorelease];
-                                  NSString *dt = [NSString stringWithFormat:@"%@",
-                                   [timeFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[f.dt doubleValue]]]];
-                                  int hour = [dt intValue];
-                                  WeatherIconFactory *factory =
-                                    [WeatherIconFactory buildFactory:[f.weather objectForKey:@"id"]
-                                                                 day:(7 < hour && hour < 19)];
-
-                                  ((UILabel *)[hours_ objectAtIndex:i]).text = dt;
-                                  ((UILabel *)[hourlyTemps_ objectAtIndex:i]).text = [NSString stringWithFormat:@"%02ld°", lround([f.temp doubleValue])];
-                                  ((UIImageView *)[hourlyWeathers_ objectAtIndex:i]).image = [factory build];
-                                }                                                              
+                              success:^(NSArray *forecasts) {
+                                [self handleHourlyForecast:forecasts];
                               }
                               failure:^(NSError *error) {
                                 
@@ -352,27 +421,8 @@ const int kPoweredByHeight = 20;
                             longitude:coord.longitude
                                 daily:YES
                                 count:kMaxDailyForecast
-                              success:^(NSArray *forecasts, BOOL daily) {
-                                for (int i = 0; i < kMaxDailyForecast; ++i) {
-                                  Forecast *f = [forecasts objectAtIndex:i];
-                                  NSDateFormatter *timeFormat =
-                                    [[[NSDateFormatter alloc] init] autorelease];
-                                  [timeFormat setDateFormat:@"EEEE"];
-                                  timeFormat.locale =
-                                    [[[NSLocale alloc]
-                                      initWithLocaleIdentifier:@"en_US"] autorelease];
-                                  NSString *dt = [NSString stringWithFormat:@"%@",
-                                                  [timeFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[f.dt doubleValue]]]];
-                                  
-                                  WeatherIconFactory *factory =
-                                    [WeatherIconFactory buildFactory:[f.weather objectForKey:@"id"]
-                                                                 day:YES];
-                                  
-                                  ((UILabel *)[days_ objectAtIndex:i]).text = dt;
-                                  ((UILabel *)[dailyMinTemps_ objectAtIndex:i]).text = [NSString stringWithFormat:@"%02ld°", lround([f.low doubleValue])];
-                                  ((UILabel *)[dailyMaxTemps_ objectAtIndex:i]).text = [NSString stringWithFormat:@"%02ld° / ", lround([f.high doubleValue])];
-                                  ((UIImageView *)[dailyWeathers_ objectAtIndex:i]).image = [factory build];
-                                }
+                              success:^(NSArray *forecasts) {
+                                [self handleDailyForecast:forecasts];
                               }
                               failure:^(NSError *error) {
                                 

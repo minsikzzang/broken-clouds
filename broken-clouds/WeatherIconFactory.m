@@ -29,7 +29,7 @@ static NSString const* iconMapJson =
 \"501\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
 \"502\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
 \"503\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
-\"504\":{\"day\":\"heavy-rail-shower.png\",\"night\":\"heavy-rail-shower.png\"},\
+\"504\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
 \"511\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
 \"520\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\
 \"521\":{\"day\":\"heavy-rain-shower.png\",\"night\":\"heavy-rain-shower.png\"},\

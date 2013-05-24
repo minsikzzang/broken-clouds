@@ -10,6 +10,7 @@
 
 @class UIDebugger;
 @class WeatherService;
+@class WeatherPhotoService;
 @class OutlinedLabel;
 @class HiddenScrollView;
 
@@ -21,6 +22,7 @@
   NSTimer *dateTimer_;
   CLLocationManager *locationManager_;
   WeatherService *weatherService_;
+  WeatherPhotoService *photoService_;
   UIDebugger *debugger_;
   UIPageControl *pageControl_;
   NSDate *threeHourly_;

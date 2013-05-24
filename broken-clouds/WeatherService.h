@@ -21,7 +21,7 @@
                  longitude:(double)longitude
                      daily:(BOOL)daily
                      count:(int)count
-                   success:(void (^)(NSArray *forecasts, BOOL daily))success
+                   success:(void (^)(NSArray *forecasts))success
                    failure:(void (^)(NSError *error))failure;
 
 @end
