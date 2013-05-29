@@ -22,4 +22,5 @@
                        success:(void (^)(NSArray *forecasts))success
                        failure:(void (^)(NSError *error))failure;
 
+// - (void)postWeatherPhotoByCoord:(
 @end

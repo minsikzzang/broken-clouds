@@ -66,21 +66,40 @@
                                             <constraint firstAttribute="height" constant="15" id="IbQ-hI-dGg"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="upP-rX-SmD">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="duz-y0-WJX"/>
+                                            <constraint firstAttribute="height" constant="65" id="fAV-RV-fMc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="camera-icon@2x.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showCamera:" destination="2" eventType="touchUpInside" id="fjf-dO-IJS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="ypK-A0-RwL" firstAttribute="centerX" secondItem="bvV-jE-T5T" secondAttribute="centerX" type="default" id="0ad-18-3L4"/>
                                     <constraint firstItem="Q9V-bi-lqn" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="70" id="9aO-Lb-mUp"/>
+                                    <constraint firstItem="upP-rX-SmD" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="491" id="B2l-Rj-B6A"/>
                                     <constraint firstItem="f83-Qm-6sp" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" type="default" id="HMu-B0-Vcn"/>
                                     <constraint firstItem="pFu-EC-Cg5" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="280" id="Q5x-9M-hZR"/>
                                     <constraint firstItem="iaO-fF-Zy8" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" type="default" id="RIb-bM-Rtc"/>
-                                    <constraint firstAttribute="bottom" secondItem="Q9V-bi-lqn" secondAttribute="bottom" constant="5" id="Sks-OT-MNS"/>
-                                    <constraint firstItem="pFu-EC-Cg5" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="24" id="SrA-7b-bKo"/>
                                     <constraint firstItem="iaO-fF-Zy8" firstAttribute="trailing" secondItem="bvV-jE-T5T" secondAttribute="trailing" type="default" id="SvV-OA-PFa"/>
                                     <constraint firstItem="ypK-A0-RwL" firstAttribute="centerX" secondItem="iaO-fF-Zy8" secondAttribute="centerX" type="default" id="UYq-oe-KMM"/>
+                                    <constraint firstAttribute="bottom" secondItem="upP-rX-SmD" secondAttribute="bottom" constant="-8" id="UgL-Jo-2yO"/>
+                                    <constraint firstItem="iaO-fF-Zy8" firstAttribute="centerX" secondItem="bvV-jE-T5T" secondAttribute="centerX" type="default" id="ZFs-zK-0W9"/>
                                     <constraint firstItem="pFu-EC-Cg5" firstAttribute="centerY" secondItem="WvQ-H9-rP6" secondAttribute="centerY" type="default" id="ZPv-kE-YbT"/>
-                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="520" id="nBV-kK-XT7"/>
-                                    <constraint firstItem="WvQ-H9-rP6" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="18" id="rv4-If-L5x"/>
+                                    <constraint firstItem="upP-rX-SmD" firstAttribute="leading" secondItem="WvQ-H9-rP6" secondAttribute="leading" type="default" id="dSJ-tX-jpl"/>
+                                    <constraint firstItem="Q9V-bi-lqn" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="513" id="hpW-5k-dGp"/>
+                                    <constraint firstItem="WvQ-H9-rP6" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="19" id="rQJ-NN-HHS"/>
+                                    <constraint firstItem="upP-rX-SmD" firstAttribute="leading" secondItem="bvV-jE-T5T" secondAttribute="leading" constant="18" id="uTv-p5-Gtb"/>
                                     <constraint firstItem="f83-Qm-6sp" firstAttribute="trailing" secondItem="bvV-jE-T5T" secondAttribute="trailing" type="default" id="uae-5m-Qgz"/>
                                     <constraint firstItem="iaO-fF-Zy8" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="280" id="vc6-Pf-pGD"/>
                                     <constraint firstItem="ypK-A0-RwL" firstAttribute="top" secondItem="bvV-jE-T5T" secondAttribute="top" constant="135" id="w4A-nR-tKW"/>
@@ -286,10 +305,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="240" y="98"/>
+            <point key="canvasLocation" x="94" y="-19"/>
         </scene>
     </scenes>
     <resources>
+        <image name="camera-icon@2x.png" width="406" height="406"/>
         <image name="clear-sky-night@2x.png" width="439" height="271"/>
         <image name="light-snow-shower@2x.png" width="439" height="274"/>
         <image name="menu@2x.png" width="43" height="29"/>
@@ -298,28 +318,6 @@
         <image name="sunny@2x.png" width="441" height="273"/>
         <image name="thunderstorms@2x.png" width="441" height="271"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="OutlinedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OutlinedLabel.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateView_" candidateClass="OutlinedLabel"/>
-                <relationship kind="outlet" name="debugView_" candidateClass="UIView"/>
-                <relationship kind="outlet" name="descriptionView_" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hiddenLayerView_" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="hourlyWeatherView_" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="iconView_" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="imageView_" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationView_" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tempView_" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

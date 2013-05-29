@@ -14,7 +14,11 @@
 @class OutlinedLabel;
 @class HiddenScrollView;
 
-@interface ViewController : UIViewController<CLLocationManagerDelegate, UIScrollViewDelegate> {
+@interface ViewController : UIViewController<
+  CLLocationManagerDelegate,
+  UIScrollViewDelegate,
+  UINavigationControllerDelegate,
+  UIImagePickerControllerDelegate> {
 @private
   NSMutableArray *mockups_;
   int currentMockup_;
@@ -33,6 +37,7 @@
   NSMutableArray *dailyMaxTemps_;
   NSMutableArray *dailyMinTemps_;
   NSMutableArray *dailyWeathers_;
+  UIImagePickerController *cameraUI_;
   
   IBOutlet UILabel *tempView_;
   IBOutlet UILabel *locationView_;
@@ -44,5 +49,8 @@
   IBOutlet UIScrollView *hiddenLayerView_;
   IBOutlet UIScrollView *hourlyWeatherView_;
 }
+
+- (IBAction)showCamera:(id)sender;
+
 
 @end

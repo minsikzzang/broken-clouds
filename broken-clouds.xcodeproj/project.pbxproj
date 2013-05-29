@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C4213940FE045559E0DCBB6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F2E319F22224C16AB5CA68E /* libPods.a */; };
 		930A1CB31742F2EE009A9D14 /* HiddenScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 930A1CB21742F2EE009A9D14 /* HiddenScrollView.m */; };
+		931710BB17553A8600C026AD /* camera-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931710BA17553A8600C026AD /* camera-icon@2x.png */; };
 		9321E86A1741C26400F648AA /* heavy-rain-shower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E8691741C26400F648AA /* heavy-rain-shower.png */; };
 		9321E86D1741C35400F648AA /* mockup18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E86B1741C35400F648AA /* mockup18@2x.png */; };
 		9321E86E1741C35400F648AA /* mockup19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9321E86C1741C35400F648AA /* mockup19@2x.png */; };
@@ -42,6 +43,8 @@
 		938FACD11703AE6700B0E65B /* mockup8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938FACC91703AE6700B0E65B /* mockup8@2x.png */; };
 		939387631746F27800DD5231 /* WeatherPhotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 939387621746F27800DD5231 /* WeatherPhotoService.m */; };
 		93A0CA0C172C8AC4006C6A64 /* UIDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */; };
+		93A87CEC1756B14E0062E618 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */; };
+		93A87CED1756B1780062E618 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */; };
 		93BF771A172D21DA003225DE /* mockup9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7713172D21DA003225DE /* mockup9@2x.png */; };
 		93BF771B172D21DA003225DE /* mockup10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7714172D21DA003225DE /* mockup10@2x.png */; };
 		93BF771C172D21DA003225DE /* mockup11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7715172D21DA003225DE /* mockup11@2x.png */; };
@@ -81,6 +84,7 @@
 		8F2E319F22224C16AB5CA68E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		930A1CB11742F2ED009A9D14 /* HiddenScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenScrollView.h; sourceTree = "<group>"; };
 		930A1CB21742F2EE009A9D14 /* HiddenScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenScrollView.m; sourceTree = "<group>"; };
+		931710BA17553A8600C026AD /* camera-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon@2x.png"; sourceTree = "<group>"; };
 		931FB3B317430701009C5948 /* Forecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forecast.h; sourceTree = "<group>"; };
 		9321E8691741C26400F648AA /* heavy-rain-shower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heavy-rain-shower.png"; sourceTree = "<group>"; };
 		9321E86B1741C35400F648AA /* mockup18@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup18@2x.png"; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 		939387621746F27800DD5231 /* WeatherPhotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherPhotoService.m; sourceTree = "<group>"; };
 		93A0CA0A172C8AC4006C6A64 /* UIDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDebugger.h; sourceTree = "<group>"; };
 		93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDebugger.m; sourceTree = "<group>"; };
+		93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		93BF7713172D21DA003225DE /* mockup9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup9@2x.png"; sourceTree = "<group>"; };
 		93BF7714172D21DA003225DE /* mockup10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup10@2x.png"; sourceTree = "<group>"; };
 		93BF7715172D21DA003225DE /* mockup11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup11@2x.png"; sourceTree = "<group>"; };
@@ -161,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A87CED1756B1780062E618 /* AssetsLibrary.framework in Frameworks */,
 				9360BDB1171F5CB500C90AC9 /* CoreLocation.framework in Frameworks */,
 				938FAC5D1703A61C00B0E65B /* UIKit.framework in Frameworks */,
 				938FAC5F1703A61C00B0E65B /* Foundation.framework in Frameworks */,
@@ -173,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A87CEC1756B14E0062E618 /* AssetsLibrary.framework in Frameworks */,
 				938FAC841703A61D00B0E65B /* SenTestingKit.framework in Frameworks */,
 				938FAC851703A61D00B0E65B /* UIKit.framework in Frameworks */,
 				938FAC861703A61D00B0E65B /* Foundation.framework in Frameworks */,
@@ -185,7 +192,6 @@
 		938FAC501703A61C00B0E65B = {
 			isa = PBXGroup;
 			children = (
-				9360BDB0171F5CB500C90AC9 /* CoreLocation.framework */,
 				938FAC9A1703A67800B0E65B /* Default-568h@2x.png */,
 				938FAC621703A61C00B0E65B /* broken-clouds */,
 				938FAC891703A61D00B0E65B /* weather-shotTests */,
@@ -207,6 +213,8 @@
 		938FAC5B1703A61C00B0E65B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9360BDB0171F5CB500C90AC9 /* CoreLocation.framework */,
+				93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */,
 				938FAC5C1703A61C00B0E65B /* UIKit.framework */,
 				938FAC5E1703A61C00B0E65B /* Foundation.framework */,
 				938FAC601703A61C00B0E65B /* CoreGraphics.framework */,
@@ -286,6 +294,7 @@
 		938FACC11703AE6700B0E65B /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				931710BA17553A8600C026AD /* camera-icon@2x.png */,
 				9321E86B1741C35400F648AA /* mockup18@2x.png */,
 				9321E86C1741C35400F648AA /* mockup19@2x.png */,
 				9321E8691741C26400F648AA /* heavy-rain-shower.png */,
@@ -430,6 +439,7 @@
 				9321E86A1741C26400F648AA /* heavy-rain-shower.png in Resources */,
 				9321E86D1741C35400F648AA /* mockup18@2x.png in Resources */,
 				9321E86E1741C35400F648AA /* mockup19@2x.png in Resources */,
+				931710BB17553A8600C026AD /* camera-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +633,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
 				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-iphoneos\"",
+					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-simulator-iphonesimulator\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -635,6 +650,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
 				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-iphoneos\"",
+					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-simulator-iphonesimulator\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

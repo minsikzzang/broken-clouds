@@ -18,6 +18,8 @@
 #import "WeatherIconFactory.h"
 #import "WeatherService.h"
 #import "WeatherPhotoService.h"
+#import "AssetsLibrary/AssetsLibrary.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 static NSString *const kMockupName = @"mockup%d.png";
 const int kMockupNum = 19;
@@ -38,6 +40,13 @@ const int kPoweredByHeight = 20;
             withCoord:(CLLocationCoordinate2D)coord;
 - (void)handleDailyForecast:(NSArray *)forecasts;
 - (void)handleHourlyForecast:(NSArray *)forecasts;
+- (BOOL)startCameraControllerFromViewController:(UIViewController *)controller
+                                       delegate:(id <UIImagePickerControllerDelegate,
+                                                     UINavigationControllerDelegate>)delegate;
+- (BOOL)startPhotoAlbumFromViewController:(UIViewController *)controller
+                                 delegate:(id <UIImagePickerControllerDelegate,
+                                           UINavigationControllerDelegate>)delegate;
+- (void)showPhotoAlbum:(id)sender;
 
 @end
 
@@ -270,6 +279,7 @@ const int kPoweredByHeight = 20;
 - (void)dealloc {
   STOP_NSTIMER(dateTimer_)
   STOP_NSTIMER(refreshTimer_)
+  SAFE_RELEASE(cameraUI_)
   SAFE_RELEASE(hours_)
   SAFE_RELEASE(hourlyTemps_)
   SAFE_RELEASE(hourlyWeathers_)
@@ -311,7 +321,7 @@ const int kPoweredByHeight = 20;
                                     day:YES
                                 success:^(NSArray *photos) {
                                   STOP_NSTIMER(refreshTimer_)
-                                  
+                                  [mockups_ removeAllObjects];
                                   for (id photo in photos) {
                                     [mockups_ addObject:[UIImage imageNamed:[self tp:[photo valueForKey:@"url"]]]];
                                     // NSLog(@"%@", [self tp:[photo valueForKey:@"url"]]);
@@ -384,6 +394,156 @@ const int kPoweredByHeight = 20;
       [NSString stringWithFormat:@"%02ld°", lround([f.temp doubleValue])];
     ((UIImageView *)[hourlyWeathers_ objectAtIndex:i]).image = [factory build];
   }
+}
+
+- (BOOL)startCameraControllerFromViewController:(UIViewController *)controller
+                                       delegate:(id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>)delegate {
+  if (([UIImagePickerController
+        isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) ||
+      (delegate == nil) ||
+      (controller == nil)) {
+    return NO;
+  }
+  
+  cameraUI_ = [[UIImagePickerController alloc] init];
+  cameraUI_.sourceType = UIImagePickerControllerSourceTypeCamera;
+  
+  // Display a control that allows the user to choose picture or movie capture,
+  // if both are available.
+  cameraUI_.mediaTypes =
+    [UIImagePickerController
+     availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+  cameraUI_.allowsEditing = YES;
+  cameraUI_.delegate = delegate;
+  UIView *overlayView = cameraUI_.cameraOverlayView;
+
+  [controller presentViewController:cameraUI_ animated:YES completion:^{
+  }];
+    
+  UIView *bottomBar = [overlayView.superview.subviews objectAtIndex:2];
+  UIView *cameraControl = [bottomBar.subviews objectAtIndex:1];
+  UIButton *cancelButton = (UIButton *)[cameraControl.subviews objectAtIndex:1];
+  [cancelButton removeFromSuperview];
+  
+  UIButton *photoAlbumButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  photoAlbumButton.frame = CGRectMake(15.0, 23.0, 50.0, 50.0);
+  [photoAlbumButton addTarget:self
+                       action:@selector(showPhotoAlbum:)
+             forControlEvents:UIControlEventTouchUpInside];
+
+  [cameraControl addSubview:photoAlbumButton];
+
+  ALAssetsLibrary *library = [[[ALAssetsLibrary alloc] init] autorelease];
+  // [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+  [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
+                         usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                           if (group != nil) {
+                             [group enumerateAssetsUsingBlock:^(ALAsset *result,
+                                                                NSUInteger index,
+                                                                BOOL *stop) {
+                               if (index == group.numberOfAssets - 1 &&
+                                   result != NULL) {
+                                 [photoAlbumButton setImage:[UIImage
+                                                             imageWithCGImage:[result thumbnail]]
+                                                   forState:UIControlStateNormal];
+                               }}];
+                             }
+                         }
+                       failureBlock:^(NSError *error) {
+                         NSLog(@"Failure");
+                       }];   
+  return YES;
+}
+
+- (BOOL)startPhotoAlbumFromViewController:(UIViewController *)controller
+                                 delegate:(id <UIImagePickerControllerDelegate,
+                                           UINavigationControllerDelegate>)delegate {
+  if (([UIImagePickerController
+        isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
+      || (delegate == nil)
+      || (controller == nil)) {
+    return NO;
+  }
+  
+  UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
+  mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+  
+  // Displays saved pictures and movies, if both are available, from the
+  // Camera Roll album.
+  mediaUI.mediaTypes =
+    [UIImagePickerController availableMediaTypesForSourceType:
+     UIImagePickerControllerSourceTypePhotoLibrary];
+  
+  // Hides the controls for moving & scaling pictures, or for
+  // trimming movies. To instead show the controls, use YES.
+  mediaUI.allowsEditing = YES;
+  mediaUI.delegate = delegate;
+  [controller presentViewController:mediaUI animated:YES completion:^{
+    [mediaUI release];
+  }];
+  
+  return YES;
+}
+
+- (void)showPhotoAlbum:(id)sender {
+  [self startPhotoAlbumFromViewController:cameraUI_ delegate:self];
+}
+
+- (IBAction)showCamera:(id)sender {
+  [self startCameraControllerFromViewController:self delegate:self];
+}
+
+#pragma mark -
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info {
+  NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+  if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+    if (url) {
+      ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
+        CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
+        // location contains lat/long, timestamp, etc
+        // extracting the image is more tricky and 5.x beta
+        // ALAssetRepresentation has bugs!
+        if (location) {
+          NSLog(@"%lf, %lf", location.coordinate.latitude,
+                location.coordinate.longitude);
+          NSLog(@"%@", location.timestamp);
+        } else {
+          NSLog(@"No location data in EXIF");
+          // We assume the photo was taken here current position. Get current
+          // geo coordination and post the photo to the server.
+        }
+      };
+      ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror) {
+        NSLog(@"cant get image - %@", [myerror localizedDescription]);
+      };
+      ALAssetsLibrary *assetsLib = [[ALAssetsLibrary alloc] init];
+      [assetsLib assetForURL:url resultBlock:resultblock failureBlock:failureblock];
+    }
+  }
+
+  UIImage *image = (UIImage *)[info valueForKey:UIImagePickerControllerOriginalImage];
+  [mockups_ addObject:image];
+  [picker dismissViewControllerAnimated:YES completion:^{
+    if (picker != cameraUI_) {
+      [cameraUI_ dismissViewControllerAnimated:YES completion:^{
+        
+      }];
+    }
+  }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+  [picker dismissViewControllerAnimated:YES completion:^{
+    if (picker != cameraUI_) {
+      [cameraUI_ dismissViewControllerAnimated:YES completion:^{
+        
+      }];
+    }
+  }];
 }
 
 #pragma mark -
