@@ -45,6 +45,7 @@
 		93A0CA0C172C8AC4006C6A64 /* UIDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */; };
 		93A87CEC1756B14E0062E618 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */; };
 		93A87CED1756B1780062E618 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */; };
+		93A87D071756CA490062E618 /* IFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A87D061756CA490062E618 /* IFLocation.m */; };
 		93BF771A172D21DA003225DE /* mockup9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7713172D21DA003225DE /* mockup9@2x.png */; };
 		93BF771B172D21DA003225DE /* mockup10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7714172D21DA003225DE /* mockup10@2x.png */; };
 		93BF771C172D21DA003225DE /* mockup11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93BF7715172D21DA003225DE /* mockup11@2x.png */; };
@@ -130,6 +131,8 @@
 		93A0CA0A172C8AC4006C6A64 /* UIDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDebugger.h; sourceTree = "<group>"; };
 		93A0CA0B172C8AC4006C6A64 /* UIDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDebugger.m; sourceTree = "<group>"; };
 		93A87CEB1756B14E0062E618 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		93A87D051756CA490062E618 /* IFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFLocation.h; sourceTree = "<group>"; };
+		93A87D061756CA490062E618 /* IFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFLocation.m; sourceTree = "<group>"; };
 		93BF7713172D21DA003225DE /* mockup9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup9@2x.png"; sourceTree = "<group>"; };
 		93BF7714172D21DA003225DE /* mockup10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup10@2x.png"; sourceTree = "<group>"; };
 		93BF7715172D21DA003225DE /* mockup11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup11@2x.png"; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				930A1CB21742F2EE009A9D14 /* HiddenScrollView.m */,
 				939387611746F27800DD5231 /* WeatherPhotoService.h */,
 				939387621746F27800DD5231 /* WeatherPhotoService.m */,
+				93A87D051756CA490062E618 /* IFLocation.h */,
+				93A87D061756CA490062E618 /* IFLocation.m */,
 			);
 			path = "broken-clouds";
 			sourceTree = "<group>";
@@ -513,6 +518,7 @@
 				93D1D5EC1731E190006D1D88 /* OutlinedLabel.m in Sources */,
 				930A1CB31742F2EE009A9D14 /* HiddenScrollView.m in Sources */,
 				939387631746F27800DD5231 /* WeatherPhotoService.m in Sources */,
+				93A87D071756CA490062E618 /* IFLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,11 +639,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
 				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-iphoneos\"",
-					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-simulator-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -650,11 +652,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "broken-clouds/weather-shot-Prefix.pch";
 				INFOPLIST_FILE = "broken-clouds/weather-shot-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-iphoneos\"",
-					"\"$(SRCROOT)/broken-clouds/iphone-exif-0-9.1/Release-simulator-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

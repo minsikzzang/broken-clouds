@@ -13,9 +13,9 @@
 @class WeatherPhotoService;
 @class OutlinedLabel;
 @class HiddenScrollView;
+@class IFLocation;
 
 @interface ViewController : UIViewController<
-  CLLocationManagerDelegate,
   UIScrollViewDelegate,
   UINavigationControllerDelegate,
   UIImagePickerControllerDelegate> {
@@ -24,7 +24,9 @@
   int currentMockup_;
   NSTimer *refreshTimer_;
   NSTimer *dateTimer_;
-  CLLocationManager *locationManager_;
+  
+  // CLLocationManager *locationManager_;
+  IFLocation *location_;
   WeatherService *weatherService_;
   WeatherPhotoService *photoService_;
   UIDebugger *debugger_;
