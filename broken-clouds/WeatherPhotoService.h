@@ -9,18 +9,33 @@
 #import <Foundation/Foundation.h>
 #import "Weather.h"
 
+typedef void (^PhotoServiceResultBlock)(NSArray *photos);
+typedef void (^PhotoServiceErrorBlock)(NSError *error);
+typedef void (^PhotoUploadResultBlock)(NSArray *forecasts);
+
 @interface WeatherPhotoService : NSObject {
 @private
   NSMutableDictionary *photoMapByWeather_;
+  CLLocationCoordinate2D lastPhotoUpdatedCoord_;
+  NSTimeInterval lastPhotoUpdated_;
 }
+
+@property (nonatomic, retain) NSArray *lastPhotos;
 
 - (void)getWeatherPhotoByCoord:(double)latitude
                      longitude:(double)longitude
                      weatherId:(IFWeatherId)weatherId
                      timestamp:(long)timestamp
                            day:(BOOL)day
-                       success:(void (^)(NSArray *forecasts))success
-                       failure:(void (^)(NSError *error))failure;
+                       success:(PhotoServiceResultBlock)success
+                       failure:(PhotoServiceErrorBlock)failure;
 
-// - (void)postWeatherPhotoByCoord:(
+- (void)postWeatherPhotoByCoord:(double)latitude
+                      longitude:(double)longitude
+                      weatherId:(IFWeatherId)weatherId
+                          photo:(UIImage *)photo
+                      timestamp:(long)timestamp
+                            day:(BOOL)day
+                        success:(PhotoUploadResultBlock)success
+                        failure:(PhotoServiceErrorBlock)failure;
 @end

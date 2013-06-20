@@ -10,7 +10,19 @@
 
 @class Weather;
 
-@interface WeatherService : NSObject
+@interface WeatherService : NSObject {
+@private
+  NSTimeInterval lastWeatherUpdated_;
+  CLLocationCoordinate2D lastWeatherUpdatedCoord_;
+  NSTimeInterval lastDailyForecastUpdated_;
+  CLLocationCoordinate2D lastDailyForecastUpdatedCoord_;
+  NSTimeInterval lastHourlyForecastUpdated_;
+  CLLocationCoordinate2D lastHourlyForecastUpdatedCoord_;
+}
+
+@property (nonatomic, retain) Weather *lastWeather;
+@property (nonatomic, retain) NSArray *lastHourlyForecasts;
+@property (nonatomic, retain) NSArray *lastDailyForecasts;
 
 - (void)getWeatherByCoord:(double)latitude
                 longitude:(double)longitude

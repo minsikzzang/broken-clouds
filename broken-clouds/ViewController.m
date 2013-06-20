@@ -21,9 +21,12 @@
 #import "AssetsLibrary/AssetsLibrary.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "IFLocation.h"
+#import "UIImageView+IFLocalCache.h"
+#import "IFSplashViewControllerIPhone.h"
+#import "IFSplashViewControllerIPad.h"
 
-static NSString *const kMockupName = @"mockup%d.png";
-const int kMockupNum = 19;
+// static NSString *const kMockupName = @"mockup%d.png";
+// const int kMockupNum = 19;
 const int kMockupRefresh = 5;
 const int kSecond = 1;
 const int kMaxHourlyForecast = 12;
@@ -34,6 +37,7 @@ const int kPoweredByHeight = 20;
 
 @interface ViewController ()
 
+- (void)initView;
 - (UIImage *)getCurrentMockup;
 - (void)refreshScreen;
 - (void)updateDate;
@@ -41,33 +45,40 @@ const int kPoweredByHeight = 20;
             withCoord:(CLLocationCoordinate2D)coord;
 - (void)handleDailyForecast:(NSArray *)forecasts;
 - (void)handleHourlyForecast:(NSArray *)forecasts;
+/*
 - (BOOL)startCameraFromViewController:(UIViewController *)controller
                              delegate:(id <UIImagePickerControllerDelegate,
                                        UINavigationControllerDelegate>)delegate;
+ */
+/*
 - (BOOL)startPhotoAlbumFromViewController:(UIViewController *)controller
                                  delegate:(id <UIImagePickerControllerDelegate,
                                            UINavigationControllerDelegate>)delegate;
-- (void)showPhotoAlbum:(id)sender;
+ */
+- (BOOL)startCameraFromViewController:(UIViewController *)controller
+                             delegate:(id <IFImagePickerDelegate>)delegate;
+
+// - (void)showPhotoAlbum:(id)sender;
 - (void)updateWeather:(CLLocationCoordinate2D)coord;
 
 @end
 
 @implementation ViewController
 
+@synthesize weather;
+
 - (UIImage *)getCurrentMockup {
   @synchronized (self) {
     if (mockups_.count <= currentMockup_) {
       currentMockup_ = 0;
     }
-    return [mockups_ objectAtIndex:currentMockup_++];
+    return ((UIImageView *)[mockups_ objectAtIndex:currentMockup_++]).image;
   } 
   return nil;
 }
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  
-	// Initialize location manager to get current location data
+- (void)initView {
+  // Initialize location manager to get current location data
   weatherService_ = [[WeatherService alloc] init];
   photoService_ = [[WeatherPhotoService alloc] init];
   
@@ -75,9 +86,6 @@ const int kPoweredByHeight = 20;
   debugger_.parent = debugView_;
   [debugger_ attach];
   
-  // locationManager_ = [[CLLocationManager alloc] init];
-  // locationManager_.delegate = self;
-  // [locationManager_ startUpdatingLocation];
   location_ = [[IFLocation alloc] init];
   
   IFLocationResultsBlock resultBlock = ^(IFLocation *location) {
@@ -86,29 +94,20 @@ const int kPoweredByHeight = 20;
   
   [location_ startUpdate:resultBlock
               errorBlock:^(NSError *error) {
-  }];
+              }];
   
   // Load all mockup images and start timer to display in roundrobin way.
   mockups_ = [[NSMutableArray alloc] init];
   
-  /*
-  for (int i = 0; i < kMockupNum; ++i) {
-    NSString *mockup = [NSString stringWithFormat:kMockupName, i + 1];
-    [mockups_ addObject:[UIImage imageNamed:mockup]];
-  }
-*/
-  
   // Display first image and start timer
   currentMockup_ = 0;
-  // [imageView_ setImage:[self getCurrentMockup]];
-
   hiddenLayerView_.delegate = self;
   
   // Initialize all the visual elements and views for hourly forecast view.
   hours_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
   hourlyTemps_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
   hourlyWeathers_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
-    
+  
   for (int i = 0; i < kMaxHourlyForecast; ++i) {
     int x = (i > 5 ? 7: 0);
     
@@ -149,7 +148,7 @@ const int kPoweredByHeight = 20;
     [hourlyWeathers_ addObject:icon];
     [icon release];
   }
-  
+    
   // Initialize all the visual elements and views for daily forecast view.
   days_ = [[NSMutableArray alloc] initWithCapacity:kMaxDailyForecast];
   dailyMaxTemps_ = [[NSMutableArray alloc] initWithCapacity:kMaxDailyForecast];
@@ -169,10 +168,10 @@ const int kPoweredByHeight = 20;
                                              FRW(self.view.frame),
                                              kDailyForecastItemHeight +
                                              (last ? kPoweredByHeight : 0))];
-
+    
     view.backgroundColor =
-      (even ? [[UIColor lightGrayColor] colorWithAlphaComponent:0.3] :
-       [[UIColor darkGrayColor] colorWithAlphaComponent:0.3]);
+    (even ? [[UIColor lightGrayColor] colorWithAlphaComponent:0.3] :
+     [[UIColor darkGrayColor] colorWithAlphaComponent:0.3]);
     
     // If the view is last one, add powered by openweathermap.org text
     if (last) {
@@ -210,7 +209,7 @@ const int kPoweredByHeight = 20;
     [dailyWeathers_ addObject:icon];
     icon.image = [UIImage imageNamed:(even ? @"overcast.png" : @"sunny-spells.png")];
     [icon release];
-
+    
     // Create a label for maximum and minimum tempertures
     UILabel *maxTemp = [[UILabel alloc] init];
     maxTemp.textColor = [UIColor whiteColor];
@@ -239,11 +238,39 @@ const int kPoweredByHeight = 20;
     [minTemp release];
     
     [hiddenLayerView_ addSubview:view];
-    [view release];    
+    [view release];
   }
   
   // Initialize and start date timer
   START_NSTIMER_(dateTimer_, kSecond, updateDate, YES)
+}
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  
+  IFSplashViewController *svc = nil;
+  if (PLATFORM_IPHONE) {
+    svc = [[IFSplashViewControllerIPhone alloc] init];
+    [svc setSplash:[UIImage imageNamed:@"Default-568h.png"] andLandscape:nil];
+    [svc setSplashNoNetwork:[UIImage imageNamed:@"Default-568h.png"]
+               andLandscape:[UIImage imageNamed:@"Default-568h.png"]];
+  } else {
+    svc = [[IFSplashViewControllerIPad alloc] init];
+    /*
+     [svc setSplash:so.ipadPortrait andLandscape:so.ipadLandscape];
+     [svc setSplashNoNetwork:so.ipadNoNetworkPortrait
+     andLandscape:so.ipadNoNetworkLandscape];
+     */
+  }
+  
+  self.splash = svc;
+  [self showSplash];
+  
+  svc.delegate = self;
+  [svc setRetry:10 timeout:60];
+  [svc checkAndNotify];
+  
+  [svc release];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -290,6 +317,7 @@ const int kPoweredByHeight = 20;
 - (void)dealloc {
   STOP_NSTIMER(dateTimer_)
   STOP_NSTIMER(refreshTimer_)
+  SAFE_RELEASE(self.weather)
   SAFE_RELEASE(cameraUI_)
   SAFE_RELEASE(hours_)
   SAFE_RELEASE(hourlyTemps_)
@@ -300,7 +328,6 @@ const int kPoweredByHeight = 20;
   SAFE_RELEASE(dailyWeathers_)
   SAFE_RELEASE(debugView_)
   SAFE_RELEASE(location_)
-  // SAFE_RELEASE(locationManager_)
   SAFE_RELEASE(tempView_)
   SAFE_RELEASE(locationView_)
   SAFE_RELEASE(mockups_)
@@ -314,37 +341,45 @@ const int kPoweredByHeight = 20;
    stringByReplacingOccurrencesOfString:@"@2x" withString:@""];
 }
 
-- (void)handleWeather:(Weather *)weather
+- (void)handleWeather:(Weather *)weather_
             withCoord:(CLLocationCoordinate2D)coord {
   [debugger_ debug:[NSString stringWithFormat:
                     @"name:%@, temp:%@, desc:%@, id:%@",
-                    weather.name,
-                    weather.temp,
-                    weather.desc,
-                    weather.weatherId]];
+                    weather_.name,
+                    weather_.temp,
+                    weather_.desc,
+                    weather_.weatherId]];
   
-  long now = location_.now;
+  self.weather = weather_;
+  PhotoServiceResultBlock resultBlock = ^(NSArray *photos) {
+    STOP_NSTIMER(refreshTimer_)
+    [mockups_ removeAllObjects];
+    for (id p in photos) {
+      NSString *url = [NSString stringWithFormat:@"%@%@",
+                       [p valueForKey:@"origin"],
+                       [p valueForKey:@"name"]];
+      UIImageView *imgView = [[UIImageView alloc] init];
+      [imgView setIFImageWithURL:[NSURL URLWithString:url]];
+      [imgView setContentMode:UIViewContentModeScaleAspectFit];
+      [mockups_ addObject:imgView];
+      [imgView release];
+      // [UIImage imageNamed:[self tp:[photo valueForKey:@"url"]]]];
+      NSLog(@"%@", url);
+    }
+    
+    // Initialize and start mockup refrsh timer
+    START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
+  };
+  
   [photoService_ getWeatherPhotoByCoord:coord.latitude
                               longitude:coord.longitude
                               weatherId:[weather.weatherId intValue]
-                              timestamp:now
+                              timestamp:location_.now
                                     day:YES
-                                success:^(NSArray *photos) {
-                                  STOP_NSTIMER(refreshTimer_)
-                                  [mockups_ removeAllObjects];
-                                  for (id photo in photos) {
-                                    [mockups_ addObject:[UIImage imageNamed:[self tp:[photo valueForKey:@"url"]]]];
-                                    // NSLog(@"%@", [self tp:[photo valueForKey:@"url"]]);
-                                  }
-                                  
-                                  // Initialize and start mockup refrsh timer
-                                  START_NSTIMER(refreshTimer_, kMockupRefresh, refreshScreen)
-                                }
+                                success:resultBlock
                                 failure:^(NSError *error) {
-
                                 }];
                                   
-
   dispatch_async(dispatch_get_main_queue(), ^{
     WeatherIconFactory *factory =
       [WeatherIconFactory buildFactory:weather
@@ -407,6 +442,19 @@ const int kPoweredByHeight = 20;
 }
 
 - (BOOL)startCameraFromViewController:(UIViewController *)controller
+                             delegate:(id <IFImagePickerDelegate>)delegate {
+  // IFImagePickerController *picker = [[[IFImagePickerController alloc] init] autorelease];
+  IFImagePickerController *picker =
+    [self.storyboard instantiateViewControllerWithIdentifier:@"IFImagePicker"];
+  picker.delegate = self;
+  [controller presentViewController:picker animated:YES completion:^{
+  }];
+
+  return YES;
+}
+
+/*
+- (BOOL)startCameraFromViewController:(UIViewController *)controller
                              delegate:(id <UIImagePickerControllerDelegate,
                                        UINavigationControllerDelegate>)delegate {
   if (([UIImagePickerController
@@ -468,43 +516,43 @@ const int kPoweredByHeight = 20;
                        }];   
   return YES;
 }
+ */
 
-- (BOOL)startPhotoAlbumFromViewController:(UIViewController *)controller
-                                 delegate:(id <UIImagePickerControllerDelegate,
-                                           UINavigationControllerDelegate>)delegate {
-  if (([UIImagePickerController
-        isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
-      || (delegate == nil)
-      || (controller == nil)) {
-    return NO;
-  }
-  
-  UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
-  mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-  
-  // Displays saved pictures and movies, if both are available, from the
-  // Camera Roll album.
-  mediaUI.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypePhotoLibrary];
-  
-  // Hides the controls for moving & scaling pictures, or for
-  // trimming movies. To instead show the controls, use YES.
-  mediaUI.allowsEditing = YES;
-  mediaUI.delegate = delegate;
-  [controller presentViewController:mediaUI animated:YES completion:^{
-    [mediaUI release];
-  }];
-  
-  return YES;
-}
-
-- (void)showPhotoAlbum:(id)sender {
-  [self startPhotoAlbumFromViewController:cameraUI_ delegate:self];
-}
 
 - (IBAction)showCamera:(id)sender {
   [self startCameraFromViewController:self delegate:self];
+}
+
+- (void)postImageWithCurrentLocation:(UIImage *)image  {
+  NSLog(@"No location data in EXIF");
+  // We assume the photo was taken here current position. Get current
+  // geo coordination and post the photo to the server.
+  IFLocationResultsBlock locationBlock = ^(IFLocation *location) {
+    CLLocationCoordinate2D coord = location.coord;
+    [photoService_ postWeatherPhotoByCoord:coord.latitude
+                                 longitude:coord.longitude
+                                 weatherId:[self.weather.weatherId intValue]
+                                     photo:image
+                                 timestamp:location.now
+                                       day:YES
+                                   success:^(NSArray *forecasts) {
+                                     
+                                   }
+                                   failure:^(NSError *error) {
+                                     
+                                   }];
+    
+  };
+  
+  [location_ startUpdate:locationBlock errorBlock:^(NSError *error) {}];
+}
+
+- (void)showSplash {
+  [self presentViewController:self.splash animated:NO completion:^{}];
+}
+
+- (void)hideSplash {
+  [self dismissViewControllerAnimated:NO completion:^{}];
 }
 
 #pragma mark -
@@ -512,60 +560,68 @@ const int kPoweredByHeight = 20;
 
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary *)info {
-  NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-  if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
-    if (url) {
-      ALAssetsLibraryAssetForURLResultBlock resultBlock = ^(ALAsset *myasset) {
-        CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
-        // location contains lat/long, timestamp, etc
-        // extracting the image is more tricky and 5.x beta
-        // ALAssetRepresentation has bugs!
-        if (location) {
-          NSLog(@"%lf, %lf", location.coordinate.latitude,
-                location.coordinate.longitude);
-          NSLog(@"%@", location.timestamp);
-        } else {
-          NSLog(@"No location data in EXIF");
-          // We assume the photo was taken here current position. Get current
-          // geo coordination and post the photo to the server.
-          IFLocationResultsBlock locationBlock = ^(IFLocation *location) {
-            NSLog(@"%lf, %lf", location.coord.latitude,
-                  location.coord.longitude);
-            NSLog(@"%@", [NSDate dateWithTimeIntervalSince1970:location.now]);
-          };
-          
-          [location_ startUpdate:locationBlock
-                      errorBlock:^(NSError *error) {
-                      }];
-        }
-      };
-      ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *myerror) {
-        NSLog(@"cant get image - %@", [myerror localizedDescription]);
-      };
-      ALAssetsLibrary *assetsLib = [[ALAssetsLibrary alloc] init];
-      [assetsLib assetForURL:url resultBlock:resultBlock failureBlock:failureBlock];
-    }
-  }
+  UIImage *image =
+    (UIImage *)[info valueForKey:UIImagePickerControllerEditedImage];
+  UIImageView *imgView = [[UIImageView alloc] init];
+  imgView.image = image;
+  [mockups_ addObject:imgView];
+  [imgView release];
 
-  UIImage *image = (UIImage *)[info valueForKey:UIImagePickerControllerOriginalImage];
-  [mockups_ addObject:image];
+  NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+  ALAssetsLibrary *assetsLib = [[[ALAssetsLibrary alloc] init] autorelease];
+  if (url) {
+    ALAssetsLibraryAssetForURLResultBlock resultBlock = ^(ALAsset *myasset) {
+      CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
+      
+      // location contains lat/long, timestamp, etc
+      // extracting the image is more tricky and 5.x beta
+      // ALAssetRepresentation has bugs!
+      if (location) {
+        CLLocationCoordinate2D coord = location.coordinate;
+        [photoService_ postWeatherPhotoByCoord:coord.latitude
+                                     longitude:coord.longitude
+                                     weatherId:[self.weather.weatherId intValue]
+                                         photo:image
+                                     timestamp:[location.timestamp timeIntervalSince1970]
+                                           day:YES
+                                       success:^(NSArray *forecasts) {
+                                           
+                                       }
+                                       failure:^(NSError *error) {
+                                       
+                                       }];
+      } else {
+        [self postImageWithCurrentLocation:image];
+      }
+    };
+    
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *myerror) {
+      NSLog(@"can't get image - %@", [myerror localizedDescription]);
+    };
+    [assetsLib assetForURL:url resultBlock:resultBlock failureBlock:failureBlock];
+  } else {
+    [self postImageWithCurrentLocation:image];
+  }
+  
+  NSString *source = [info objectForKey:IFImagePickerImageSource];
+  if ([source caseInsensitiveCompare:IFImagePickerImageLibrary]) {
+    [assetsLib writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"]
+                                       metadata:nil
+                                completionBlock:^(NSURL *assetURL, NSError *error) {
+                                  if (error) {
+                                    NSLog(@"ERROR: the image failed to be written");
+                                  } else {
+                                    NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
+                                  }
+                                }];
+  }
+  
   [picker dismissViewControllerAnimated:YES completion:^{
-    if (picker != cameraUI_) {
-      [cameraUI_ dismissViewControllerAnimated:YES completion:^{
-        
-      }];
-    }
   }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
   [picker dismissViewControllerAnimated:YES completion:^{
-    if (picker != cameraUI_) {
-      [cameraUI_ dismissViewControllerAnimated:YES completion:^{
-        
-      }];
-    }
   }];
 }
 
@@ -576,8 +632,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   
   [weatherService_ getWeatherByCoord:coord.latitude
                            longitude:coord.longitude
-                             success:^(Weather *weather) {
-                               [self handleWeather:weather withCoord:coord];
+                             success:^(Weather *w) {
+                               [self handleWeather:w withCoord:coord];
                              }
                              failure:^(NSError *error) {
                                [debugger_ debug:@"Failed to retrieve weather data"];
@@ -609,21 +665,46 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 #pragma mark -
 #pragma mark - UIScrollViewDelegate methods
 
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  
+  tempView_.hidden = YES;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset {
-  IFLocationResultsBlock resultBlock = ^(IFLocation *location) {
-    [self updateWeather:location.coord];
-  };
-  
-  [location_ startUpdate:resultBlock
-              errorBlock:^(NSError *error) {
-              }];
-  // [locationManager_ startUpdatingLocation];
+  // We only update weather when user's sliding down screen.
+  if (scrollView.contentOffset.y <= 0) {
+    IFLocationResultsBlock resultBlock = ^(IFLocation *location) {
+      [self updateWeather:location.coord];
+    };
+    
+    [location_ startUpdate:resultBlock
+                errorBlock:^(NSError *error) {
+                }];
+    tempView_.hidden = NO;
+  } 
 }
+
+#pragma mark -
+#pragma mark SplashViewController
+
+- (void)onConnectivityOK {
+  // Once we are done with splash screen, remove the splash view
+  // from the main view.
+  [self hideSplash];
+  [self initView];
+}
+
+- (void)onConnectivityBad {
+  NSLog(@"Bad connection state");
+}
+
 
 @end

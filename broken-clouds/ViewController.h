@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IFImagePickerController.h"
+#import "IFSplashViewController.h"
 
 @class UIDebugger;
+@class Weather;
 @class WeatherService;
 @class WeatherPhotoService;
 @class OutlinedLabel;
@@ -18,7 +21,9 @@
 @interface ViewController : UIViewController<
   UIScrollViewDelegate,
   UINavigationControllerDelegate,
-  UIImagePickerControllerDelegate> {
+  UIImagePickerControllerDelegate,
+  IFImagePickerDelegate,
+  IFSplashViewConnectivityCheckDelegate> {
 @private
   NSMutableArray *mockups_;
   int currentMockup_;
@@ -52,6 +57,11 @@
   IBOutlet UIScrollView *hourlyWeatherView_;
 }
 
+@property (nonatomic, retain) Weather *weather;
+@property (nonatomic, retain) UIViewController *splash;
+
+- (void)showSplash;
+- (void)hideSplash;
 - (IBAction)showCamera:(id)sender;
 
 

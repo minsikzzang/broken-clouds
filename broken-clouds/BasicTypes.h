@@ -121,10 +121,12 @@ object:z];
 #define PLATFORM_IPHONE \
 ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
 
-
 #define FRX(z) z.origin.x
 #define FRY(x) x.origin.y
 #define FRW(x) x.size.width
 #define FRH(x) x.size.height
+
+#define DISTANCE_BETWEEN(x, y) \
+MKMetersBetweenMapPoints(MKMapPointForCoordinate(x), MKMapPointForCoordinate(y));
 
 
