@@ -17,6 +17,7 @@
 @class OutlinedLabel;
 @class HiddenScrollView;
 @class IFLocation;
+@class IFTrackableScrollView;
 
 @interface ViewController : UIViewController<
   UIScrollViewDelegate,
@@ -45,15 +46,19 @@
   NSMutableArray *dailyMinTemps_;
   NSMutableArray *dailyWeathers_;
   UIImagePickerController *cameraUI_;
-  
-  IBOutlet UILabel *tempView_;
+  UILabel *tempView_;
+  BOOL updateTriggered_;  
+    
+  IBOutlet UIView *updateStatusView_;
+  IBOutlet UILabel *updateStatus_;
+  // IBOutlet UILabel *tempView2_;
   IBOutlet UILabel *locationView_;
   IBOutlet UILabel *descriptionView_;
   IBOutlet OutlinedLabel *dateView_;
   IBOutlet UIImageView *imageView_;
   IBOutlet UIImageView *iconView_;
   IBOutlet UIView *debugView_;
-  IBOutlet UIScrollView *hiddenLayerView_;
+  IBOutlet IFTrackableScrollView *hiddenLayerView_;
   IBOutlet UIScrollView *hourlyWeatherView_;
 }
 

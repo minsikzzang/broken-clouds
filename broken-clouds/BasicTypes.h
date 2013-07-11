@@ -3,7 +3,7 @@
 //  weather-shot
 //
 //  Created by Min Kim on 4/17/13.
-//  Copyright (c) 2013 min kim. All rights reserved.
+//  Copyright (c) 2013 iFactory Lab. All rights reserved.
 //
 
 

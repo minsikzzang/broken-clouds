@@ -39,6 +39,11 @@ const int kLimitTimeForecastUpdate = 60 * 60; // 3600 seconds -> 1 hour
 @synthesize lastHourlyForecasts;
 @synthesize lastWeather;
 
+- (NSTimeInterval)getLastUpdatedTimeFromNow {
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+  return (now - lastWeatherUpdated_);
+}
+
 - (BOOL)isWeatherUpdateRequired:(CLLocationCoordinate2D)coord {
   NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
   double meters = DISTANCE_BETWEEN(coord, lastWeatherUpdatedCoord_)

@@ -3,7 +3,7 @@
 //  broken-clouds
 //
 //  Created by Min Kim on 5/30/13.
-//  Copyright (c) 2013 min kim. All rights reserved.
+//  Copyright (c) 2013 iFactory Lab. All rights reserved.
 //
 
 #import "IFLocation.h"

@@ -24,6 +24,7 @@
 #import "UIImageView+IFLocalCache.h"
 #import "IFSplashViewControllerIPhone.h"
 #import "IFSplashViewControllerIPad.h"
+#import "IFTrackableScrollView.h"
 
 // static NSString *const kMockupName = @"mockup%d.png";
 // const int kMockupNum = 19;
@@ -34,6 +35,8 @@ const int kDailyForecastItemHeight = 40;
 const int kMaxDailyForecast = 6;
 const int kMarginUnderScreen = 50;
 const int kPoweredByHeight = 20;
+const CGFloat kLoadingViewHeight = 50.0 + 5.0;
+const CGFloat kMinDelayForPutHiddenBack = 1.0;
 
 @interface ViewController ()
 
@@ -60,6 +63,11 @@ const int kPoweredByHeight = 20;
 
 // - (void)showPhotoAlbum:(id)sender;
 - (void)updateWeather:(CLLocationCoordinate2D)coord;
+- (void)moveTempViewBack;
+- (void)moveView:(UIView *)view to:(UIView *)parent asMuch:(CGRect)frame;
+- (void)moveView:(UIView *)view to:(CGRect)to;
+- (void)moveView:(UIView *)view up:(CGFloat)up;
+- (void)moveView:(UIView *)view down:(CGFloat)down;
 
 @end
 
@@ -81,6 +89,8 @@ const int kPoweredByHeight = 20;
   // Initialize location manager to get current location data
   weatherService_ = [[WeatherService alloc] init];
   photoService_ = [[WeatherPhotoService alloc] init];
+  updateTriggered_ = NO;
+  updateStatusView_.backgroundColor = RGB(57.0, 66.0, 100.0, 0.4);
   
   debugger_ = [[UIDebugger alloc] init];
   debugger_.parent = debugView_;
@@ -102,6 +112,17 @@ const int kPoweredByHeight = 20;
   // Display first image and start timer
   currentMockup_ = 0;
   hiddenLayerView_.delegate = self;
+
+  tempView_ = [[UILabel alloc] init];
+  tempView_.textColor = [UIColor whiteColor];
+  tempView_.textAlignment = NSTextAlignmentLeft;
+  tempView_.font = [UIFont fontWithName:@"GillSans-Bold" size:64.0];
+  tempView_.text = @"5°";
+  tempView_.frame = CGRectMake(13.0, 0.0, 250.0, 77.0);
+  tempView_.backgroundColor = [UIColor clearColor];
+  tempView_.shadowColor = [UIColor darkGrayColor];
+  tempView_.shadowOffset = CGSizeMake(1.0, -1.0);
+  [hourlyWeatherView_ addSubview:tempView_];
   
   // Initialize all the visual elements and views for hourly forecast view.
   hours_ = [[NSMutableArray alloc] initWithCapacity:kMaxHourlyForecast];
@@ -634,9 +655,22 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
                            longitude:coord.longitude
                              success:^(Weather *w) {
                                [self handleWeather:w withCoord:coord];
+                               NSTimeInterval ago = [weatherService_ getLastUpdatedTimeFromNow];
+                               updateStatus_.text =
+                                  [NSString stringWithFormat:@"Updated %d seconds ago", (int)ago];
+                               [self performSelector:@selector(putHiddenViewBack)
+                                          withObject:nil
+                                          afterDelay:kMinDelayForPutHiddenBack];
+
                              }
                              failure:^(NSError *error) {
                                [debugger_ debug:@"Failed to retrieve weather data"];
+                               updateStatus_.text =
+                                  [NSString stringWithFormat:@"Failed to update weather information"];
+                               
+                               [self performSelector:@selector(putHiddenViewBack)
+                                          withObject:nil
+                                          afterDelay:kMinDelayForPutHiddenBack];
                              }];
   
   [weatherService_ getForecastByCoord:coord.latitude
@@ -658,7 +692,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
                                 [self handleDailyForecast:forecasts];
                               }
                               failure:^(NSError *error) {
-                                
                               }];
 }
 
@@ -673,23 +706,80 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  tempView_.hidden = YES;
+  // tempView_ is on hourlyWeatherView but when user's sliding
+  // hiddenLayerView, it also should move as main view is moving.
+  CGRect frame = tempView_.frame;
+  frame.origin.y = 40;
+  [self moveView:tempView_ to:hiddenLayerView_ asMuch:frame];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset {
   // We only update weather when user's sliding down screen.
-  if (scrollView.contentOffset.y <= 0) {
+  if (scrollView.contentOffset.y <= (kLoadingViewHeight * -1)) {
+    [self moveView:hiddenLayerView_ down:kLoadingViewHeight];
+    @synchronized (self) {
+      updateTriggered_ = YES;
+      updateStatusView_.hidden = NO;
+      updateStatus_.text = [NSString stringWithFormat:@"Updating weather information...."];
+    }
+    
     IFLocationResultsBlock resultBlock = ^(IFLocation *location) {
       [self updateWeather:location.coord];
     };
     
     [location_ startUpdate:resultBlock
                 errorBlock:^(NSError *error) {
-                }];
-    tempView_.hidden = NO;
-  } 
+        updateStatus_.text = @"Failed to update geo location data. Please try again later.";
+
+        [self performSelector:@selector(putHiddenViewBack)
+                   withObject:nil
+                   afterDelay:kMinDelayForPutHiddenBack];
+    }];
+
+    // Put tempView_ to original place
+    [self performSelector:@selector(moveTempViewBack)
+               withObject:nil
+               afterDelay:kMinDelayForPutHiddenBack];
+  }
+}
+
+- (void)putHiddenViewBack {  
+  @synchronized (self) {
+    if (updateTriggered_) {
+      updateStatusView_.hidden = YES;      
+      [self moveView:hiddenLayerView_ up:kLoadingViewHeight];
+      updateTriggered_ = NO;
+    }
+  }
+}
+
+- (void)moveView:(UIView *)view up:(CGFloat)up {
+  [self moveView:view to:CGRectMake(0.0, (-1) * up, 0.0, 0.0)];
+}
+
+- (void)moveView:(UIView *)view down:(CGFloat)down {
+  [self moveView:view to:CGRectMake(0.0, down, 0.0, 0.0)];
+}
+
+- (void)moveView:(UIView *)view to:(CGRect)to {
+  CGRect frame = view.frame;
+  frame.origin.x += to.origin.x;
+  frame.origin.y += to.origin.y;  
+  view.frame = frame;
+}
+
+- (void)moveView:(UIView *)view to:(UIView *)parent asMuch:(CGRect)frame {
+  view.frame = frame;
+  [view removeFromSuperview];
+  [parent addSubview:view];
+}
+
+- (void)moveTempViewBack {
+  CGRect frame = tempView_.frame;
+  frame.origin.y = 0.0;  
+  [self moveView:tempView_ to:hourlyWeatherView_ asMuch:frame];
 }
 
 #pragma mark -

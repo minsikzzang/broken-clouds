@@ -20,6 +20,7 @@
 		9327987F17725F31003885D6 /* IFSplashViewControllerIPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327987E17725F31003885D6 /* IFSplashViewControllerIPhone.m */; };
 		9327996817725F58003885D6 /* IFSplashViewControllerIPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327996717725F58003885D6 /* IFSplashViewControllerIPad.m */; };
 		9327996A1773BCE8003885D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932799691773BCE8003885D6 /* MapKit.framework */; };
+		9327996D1773CD3E003885D6 /* IFTrackableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327996C1773CD3E003885D6 /* IFTrackableScrollView.m */; };
 		932ABE581714D3D0009A9946 /* WeatherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 932ABE571714D3D0009A9946 /* WeatherService.m */; };
 		932BF18D1763C14E00F53838 /* dock_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BF18C1763C14E00F53838 /* dock_bg@2x.png */; };
 		932BF1901763C3D000F53838 /* camera-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BF18E1763C3D000F53838 /* camera-button@2x.png */; };
@@ -150,6 +151,8 @@
 		9327996617725F58003885D6 /* IFSplashViewControllerIPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSplashViewControllerIPad.h; sourceTree = "<group>"; };
 		9327996717725F58003885D6 /* IFSplashViewControllerIPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSplashViewControllerIPad.m; sourceTree = "<group>"; };
 		932799691773BCE8003885D6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9327996B1773CD3E003885D6 /* IFTrackableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFTrackableScrollView.h; sourceTree = "<group>"; };
+		9327996C1773CD3E003885D6 /* IFTrackableScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFTrackableScrollView.m; sourceTree = "<group>"; };
 		932ABE561714D3D0009A9946 /* WeatherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherService.h; sourceTree = "<group>"; };
 		932ABE571714D3D0009A9946 /* WeatherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherService.m; sourceTree = "<group>"; };
 		932BF18C1763C14E00F53838 /* dock_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dock_bg@2x.png"; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				9327987E17725F31003885D6 /* IFSplashViewControllerIPhone.m */,
 				9327996617725F58003885D6 /* IFSplashViewControllerIPad.h */,
 				9327996717725F58003885D6 /* IFSplashViewControllerIPad.m */,
+				9327996B1773CD3E003885D6 /* IFTrackableScrollView.h */,
+				9327996C1773CD3E003885D6 /* IFTrackableScrollView.m */,
 			);
 			path = "broken-clouds";
 			sourceTree = "<group>";
@@ -761,6 +766,7 @@
 				9327987C17725E4E003885D6 /* IFSplashViewController.m in Sources */,
 				9327987F17725F31003885D6 /* IFSplashViewControllerIPhone.m in Sources */,
 				9327996817725F58003885D6 /* IFSplashViewControllerIPad.m in Sources */,
+				9327996D1773CD3E003885D6 /* IFTrackableScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,8 +12,7 @@
   CGRect holeRect;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     _radius = 80.0f;
@@ -29,7 +28,7 @@
   return self;
 }
 
-- (void)setCircleCenter:(CGPoint)circleCenter{
+- (void)setCircleCenter:(CGPoint)circleCenter {
   _circleCenter = circleCenter;
   holeRect = CGRectMake(circleCenter.x - self.radius, circleCenter.y - self.radius,
                         self.radius * 2,
@@ -37,7 +36,7 @@
   [self setNeedsDisplay];
 }
 
-- (void)setRadius:(CGFloat)radius{
+- (void)setRadius:(CGFloat)radius {
   _radius = radius;
   CGPoint center = CGPointMake(CGRectGetMidX(holeRect), CGRectGetMidY(holeRect));
   holeRect = CGRectMake(center.x - self.radius, center.y - self.radius,

@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSArray *lastHourlyForecasts;
 @property (nonatomic, retain) NSArray *lastDailyForecasts;
 
+- (NSTimeInterval)getLastUpdatedTimeFromNow;
+
 - (void)getWeatherByCoord:(double)latitude
                 longitude:(double)longitude
                   success:(void (^)(Weather *weather))success
